@@ -1,23 +1,24 @@
-PImage img;  // Declare variable "a" of type PImage
-
-String selectedSlider = "weq";
+PImage img;  // Declare variable "img" of type PImage
+PGraphics canvas;
 
 controlSlider w45min;
 controlSlider weq;
 controlSlider w45max;
 
+ArrayList<Agent> particles;
 
 int counter;
 
 void setup() {
-  //size(1000, 600, P3D);
-  fullScreen(P3D);
+  size(1280, 800, P3D);
+  background(0);
+  //fullScreen(P3D);
+  
   img = loadImage("Equirectangular_projection_SW.jpg");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular.png");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png");  // Load the image into the program  
   
-  
-  background(0);
+  canvas = createGraphics(img.width, img.height, P3D);
   
   w45min = new controlSlider();
   w45min.name = "Lower Hemisphere Control with Z-X";
@@ -25,7 +26,7 @@ void setup() {
   w45min.keyMinus = 'z';
   w45min.xpos = 50;
   w45min.ypos = 210;
-  w45min.len = 300;
+  w45min.len = int(0.1*width);
   w45min.valMin = -90;
   w45min.valMax = 90;
   w45min.value = -45;
@@ -36,7 +37,7 @@ void setup() {
   weq.keyMinus = 'a';
   weq.xpos = 50;
   weq.ypos = 140;
-  weq.len = 300;
+  weq.len = int(0.1*width);
   weq.valMin = -90;
   weq.valMax = 90;
   
@@ -46,24 +47,42 @@ void setup() {
   w45max.keyMinus = 'q';
   w45max.xpos = 50;
   w45max.ypos = 70;
-  w45max.len = 300;
+  w45max.len = int(0.1*width);
   w45max.valMin = -90;
   w45max.valMax = 90;
   w45max.value = 45;
   
+  particles = new ArrayList<Agent>();
+  for (int i=0; i<100; i++) {
+    Agent a = new Agent(img.width, img.height);
+    a.randomInit();
+    particles.add(a);
+  }
 }
 
 void draw() {
   background(0);
-
-  fill(255);
-  text(frameRate,10,20);
- 
+  
+  canvas.beginDraw();
+  canvas.background(0);
+  canvas.colorMode(HSB);
+  canvas.image(img, 0, 0);
+  for (Agent a: particles) {
+    a.update();
+    a.draw();
+  }
+  canvas.endDraw();
+  
+  drawProjection(w45min.value,weq.value,w45max.value, 200);
+  
+  //image(canvas, 0, 0);
+  
   w45min.drawMe();
   weq.drawMe();
   w45max.drawMe();
   
-  drawProjection(w45min.value,weq.value,w45max.value, 200);
+  fill(255);
+  text(frameRate,10,20);
 }
 
 
@@ -74,13 +93,14 @@ void drawProjection(float botWarp, float equatorWarp, float topWarp, int seg) {
   if ((keyPressed == true) && (key == 'l')) {stroke(0);}
   if ((keyPressed == true) && (key == 'p')) {seg=15;}
   
-  
+  pushMatrix();
   translate(width/2, height/2);
   
   drawCircle(0,                               height*(90-topWarp)/360,         0,                img.height/4,    seg); //center
   drawCircle(height*(90-topWarp)/360,         height*(90-equatorWarp)/360,     img.height/4,       img.height/2,    seg); // north of equator
   drawCircle(height*(90-equatorWarp)/360,     height*(90-botWarp)/360,         img.height/2,     img.height*3/4,     seg); //south of equator
   drawCircle(height*(90-botWarp)/360,         height/2,                        img.height*3/4,        img.height,    seg); //outside edge
+  popMatrix();
 }
 
 
@@ -90,7 +110,7 @@ void drawCircle(float innerR,float outerR,int texTop, int texBot, int segments) 
   float segmentAngle = 2*PI/segments;
   
   beginShape(TRIANGLE_STRIP);
-  texture(img);
+  texture(canvas);
   for(int i=0; i<=segments;i++) {
     vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, i*img.width/segments, texBot);
     vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, i*img.width/segments, texTop);

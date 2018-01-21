@@ -54,7 +54,7 @@ class controlSlider {
   void drawMe() {
     fill(255);
     text(value,xpos+diameter+len,ypos+5);
-    text(name,xpos,ypos-diameter);
+    text(name,xpos-0.5*diameter,ypos-diameter);
     
     stroke(100);
     fill(255,100);
@@ -68,9 +68,9 @@ class controlSlider {
 
 // Activates once when mouse first clicks
 void mousePressed() {
-  if (w45min.listenCheck()) selectedSlider = "w45min";
-  if (   weq.listenCheck()) selectedSlider = "weq";
-  if (w45max.listenCheck()) selectedSlider = "w45max";
+  w45min.listenCheck();
+  weq.listenCheck();
+  w45max.listenCheck();
 }
 
 // Activates continuously while mouse is dragging
@@ -90,10 +90,10 @@ void mouseReleased() {
 void keyPressed() {
   switch(key) {
     case 'q':
-      w45min.listenKey(-1);
+      w45max.listenKey(-1);
       break;
     case 'w':
-      w45min.listenKey(+1);
+      w45max.listenKey(+1);
       break;
     case 'a':
       weq.listenKey(-1);
@@ -102,10 +102,10 @@ void keyPressed() {
       weq.listenKey(+1);
       break;
     case 'z':
-      w45max.listenKey(-1);
+      w45min.listenKey(-1);
       break;
     case 'x':
-      w45max.listenKey(+1);
+      w45min.listenKey(+1);
       break;
   }
 }
