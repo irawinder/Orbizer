@@ -47,7 +47,7 @@ class controlSlider {
   }
   
   void drawMe() {
-    fill(150);
+    fill(255);
     text(value,xpos+diameter+len,ypos+5);
     text(name,xpos-0.5*diameter,ypos-diameter);
     
@@ -124,6 +124,9 @@ void keyPressed() {
       break;
     case 'r':
       resetMapping();
+      break;
+    case 'f':
+      showFrameRate = !showFrameRate;
       break;
   }
 }

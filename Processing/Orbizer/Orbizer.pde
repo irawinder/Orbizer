@@ -4,6 +4,7 @@ PGraphics canvas;
 boolean enableProjection;
 boolean showVertexEdges;
 boolean reducedResolution;
+boolean showFrameRate;
 
 controlSlider w45min;
 controlSlider weq;
@@ -14,7 +15,7 @@ ArrayList<Agent> particles;
 int counter;
 
 void setup() {
-  size(1280, 700, P3D);
+  size(1280, 600, P3D);
   background(0);
   //fullScreen(P3D);
   
@@ -24,10 +25,13 @@ void setup() {
   
   canvas = createGraphics(img.width, img.height, P3D);
   
+  int vOffset = 250;
+  int xOffset = 50;
+  
   w45min = new controlSlider();
   w45min.name = "Lower Hemisphere Control with Z-X";
-  w45min.xpos = 50;
-  w45min.ypos = 300;
+  w45min.xpos = xOffset;
+  w45min.ypos = vOffset + 140;
   w45min.len = int(0.15*width);
   w45min.valMin = -90;
   w45min.valMax = 90;
@@ -35,16 +39,16 @@ void setup() {
   
   weq = new controlSlider();
   weq.name = "Equator Control with A-S";
-  weq.xpos = 50;
-  weq.ypos = 230;
+  weq.xpos = xOffset;
+  weq.ypos = vOffset + 70;
   weq.len = int(0.15*width);
   weq.valMin = -90;
   weq.valMax = 90;
   
   w45max = new controlSlider();
   w45max.name = "Upper Hemisphere Control with Q-W";
-  w45max.xpos = 50;
-  w45max.ypos = 160;
+  w45max.xpos = xOffset;
+  w45max.ypos = vOffset;
   w45max.len = int(0.15*width);
   w45max.valMin = -90;
   w45max.valMax = 90;
@@ -60,6 +64,7 @@ void setup() {
   enableProjection = true;;
   showVertexEdges = false;
   reducedResolution = false;
+  showFrameRate = false;
 }
 
 void draw() {
@@ -86,11 +91,20 @@ void draw() {
   
   fill(255,200);
   String projectionHelp = "";
+  String frameRt = "";
   if (enableProjection) {
-    projectionHelp = "Press 'l' to show or hide graphics vertices\nPress 's' to reduce or increase resolution\nPress 'r' to reset callibration\n";
+    projectionHelp = "\nPress ' l ' to show or hide graphics vertices\n" +
+                       "Press ' s ' to reduce or increase resolution\n" +
+                       "Press ' r ' to reset callibration";
   }
-  text("Press 'p' to toggle spherical projection map\n" + projectionHelp +
-       "Framerate: " + frameRate, 10, 20);
+  if (showFrameRate) {
+    frameRt = "\n\nFramerate: " + frameRate;
+  }
+  text("Orbizer | Spherical Projection Mapping\n" +
+       "Mike and Ira Winder\noncue.design\n\n" +
+       "Press ' p ' to toggle spherical projection map\n" +
+       "Press ' f ' to show or hide framerate" + 
+       projectionHelp + frameRt, 50-12.5, 50);
 }
 
 
