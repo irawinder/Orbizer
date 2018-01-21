@@ -122,5 +122,14 @@ void keyPressed() {
     case 's':
       reducedResolution = !reducedResolution;
       break;
+    case 'r':
+      resetMapping();
+      break;
   }
+}
+
+void resetMapping() {
+  w45min.value = -45;
+  weq.value    = 0;
+  w45max.value = 45;
 }

@@ -87,7 +87,7 @@ void draw() {
   fill(255,200);
   String projectionHelp = "";
   if (enableProjection) {
-    projectionHelp = "Press 'l' to show or hide graphics vertices\nPress 's' to reduce or increase resolution\n";
+    projectionHelp = "Press 'l' to show or hide graphics vertices\nPress 's' to reduce or increase resolution\nPress 'r' to reset callibration\n";
   }
   text("Press 'p' to toggle spherical projection map\n" + projectionHelp +
        "Framerate: " + frameRate, 10, 20);
@@ -104,10 +104,10 @@ void drawProjection(float botWarp, float equatorWarp, float topWarp, int seg) {
   pushMatrix();
   translate(width/2, height/2);
   
-  drawCircle(0,                               height*(90-topWarp)/360,         0,                img.height/4,    seg); //center
+  drawCircle(0,                               height*(90-topWarp)/360,         0,                  img.height/4,    seg); //center
   drawCircle(height*(90-topWarp)/360,         height*(90-equatorWarp)/360,     img.height/4,       img.height/2,    seg); // north of equator
-  drawCircle(height*(90-equatorWarp)/360,     height*(90-botWarp)/360,         img.height/2,     img.height*3/4,     seg); //south of equator
-  drawCircle(height*(90-botWarp)/360,         height/2,                        img.height*3/4,        img.height,    seg); //outside edge
+  drawCircle(height*(90-equatorWarp)/360,     height*(90-botWarp)/360,         img.height/2,       img.height*3/4,  seg); //south of equator
+  drawCircle(height*(90-botWarp)/360,         height/2,                        img.height*3/4,     img.height,      seg); //outside edge
   popMatrix();
 }
 
