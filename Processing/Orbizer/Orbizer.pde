@@ -22,32 +22,26 @@ void setup() {
   
   w45min = new controlSlider();
   w45min.name = "Lower Hemisphere Control with Z-X";
-  w45min.keyPlus = 'x';
-  w45min.keyMinus = 'z';
   w45min.xpos = 50;
   w45min.ypos = 210;
-  w45min.len = int(0.1*width);
+  w45min.len = int(0.15*width);
   w45min.valMin = -90;
   w45min.valMax = 90;
   w45min.value = -45;
   
   weq = new controlSlider();
   weq.name = "Equator Control with A-S";
-  weq.keyPlus = 's';
-  weq.keyMinus = 'a';
   weq.xpos = 50;
   weq.ypos = 140;
-  weq.len = int(0.1*width);
+  weq.len = int(0.15*width);
   weq.valMin = -90;
   weq.valMax = 90;
   
   w45max = new controlSlider();
   w45max.name = "Upper Hemisphere Control with Q-W";
-  w45max.keyPlus = 'w';
-  w45max.keyMinus = 'q';
   w45max.xpos = 50;
   w45max.ypos = 70;
-  w45max.len = int(0.1*width);
+  w45max.len = int(0.15*width);
   w45max.valMin = -90;
   w45max.valMax = 90;
   w45max.value = 45;

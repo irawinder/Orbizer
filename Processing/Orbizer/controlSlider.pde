@@ -4,9 +4,6 @@ class controlSlider {
   int ypos;
   int len;
   
-  char keyMinus;
-  char keyPlus;
-  
   int valMin;
   int valMax;
   
@@ -19,8 +16,6 @@ class controlSlider {
     xpos = 0;
     ypos = 0;
     len = 200;
-    keyMinus = 'q';
-    keyPlus = 'w';
     valMin = 0;
     valMax = 0;
     value = 0;
