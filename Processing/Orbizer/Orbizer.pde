@@ -1,5 +1,7 @@
 PImage img;  // Declare variable "a" of type PImage
 
+String selectedSlider = "weq";
+
 controlSlider w45min;
 controlSlider weq;
 controlSlider w45max;
@@ -10,9 +12,9 @@ int counter;
 void setup() {
   //size(1000, 600, P3D);
   fullScreen(P3D);
-  //img = loadImage("Equirectangular_projection_SW.jpg");  // Load the image into the program  
+  img = loadImage("Equirectangular_projection_SW.jpg");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular.png");  // Load the image into the program  
-  img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png");  // Load the image into the program  
+  //img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png");  // Load the image into the program  
   
   
   background(0);
@@ -56,16 +58,10 @@ void draw() {
 
   fill(255);
   text(frameRate,10,20);
-  
- // controlSlider(10, 50, 200, 'q', 'w', w45min);
- w45min.listen();
- w45min.drawMe();
  
- weq.listen();
- weq.drawMe();
- 
- w45max.listen();
- w45max.drawMe();
+  w45min.drawMe();
+  weq.drawMe();
+  w45max.drawMe();
   
   drawProjection(w45min.value,weq.value,w45max.value, 200);
 }
