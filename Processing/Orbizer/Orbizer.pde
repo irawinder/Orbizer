@@ -1,6 +1,10 @@
 PImage img;  // Declare variable "img" of type PImage
 PGraphics canvas;
 
+boolean enableProjection;
+boolean showVertexEdges;
+boolean reducedResolution;
+
 controlSlider w45min;
 controlSlider weq;
 controlSlider w45max;
@@ -10,7 +14,7 @@ ArrayList<Agent> particles;
 int counter;
 
 void setup() {
-  size(1280, 800, P3D);
+  size(1280, 700, P3D);
   background(0);
   //fullScreen(P3D);
   
@@ -23,7 +27,7 @@ void setup() {
   w45min = new controlSlider();
   w45min.name = "Lower Hemisphere Control with Z-X";
   w45min.xpos = 50;
-  w45min.ypos = 210;
+  w45min.ypos = 300;
   w45min.len = int(0.15*width);
   w45min.valMin = -90;
   w45min.valMax = 90;
@@ -32,7 +36,7 @@ void setup() {
   weq = new controlSlider();
   weq.name = "Equator Control with A-S";
   weq.xpos = 50;
-  weq.ypos = 140;
+  weq.ypos = 230;
   weq.len = int(0.15*width);
   weq.valMin = -90;
   weq.valMax = 90;
@@ -40,7 +44,7 @@ void setup() {
   w45max = new controlSlider();
   w45max.name = "Upper Hemisphere Control with Q-W";
   w45max.xpos = 50;
-  w45max.ypos = 70;
+  w45max.ypos = 160;
   w45max.len = int(0.15*width);
   w45max.valMin = -90;
   w45max.valMax = 90;
@@ -52,6 +56,10 @@ void setup() {
     a.randomInit();
     particles.add(a);
   }
+  
+  enableProjection = true;;
+  showVertexEdges = false;
+  reducedResolution = false;
 }
 
 void draw() {
@@ -67,16 +75,22 @@ void draw() {
   }
   canvas.endDraw();
   
-  drawProjection(w45min.value,weq.value,w45max.value, 200);
+  if (enableProjection) {
+    drawProjection(w45min.value,weq.value,w45max.value, 200);
+    w45min.drawMe();
+    weq.drawMe();
+    w45max.drawMe();
+  } else {
+    image(canvas, 0, 0, width, height);
+  }
   
-  //image(canvas, 0, 0);
-  
-  w45min.drawMe();
-  weq.drawMe();
-  w45max.drawMe();
-  
-  fill(255);
-  text(frameRate,10,20);
+  fill(255,200);
+  String projectionHelp = "";
+  if (enableProjection) {
+    projectionHelp = "Press 'l' to show or hide graphics vertices\nPress 's' to reduce or increase resolution\n";
+  }
+  text("Press 'p' to toggle spherical projection map\n" + projectionHelp +
+       "Framerate: " + frameRate, 10, 20);
 }
 
 
@@ -84,8 +98,8 @@ void draw() {
 void drawProjection(float botWarp, float equatorWarp, float topWarp, int seg) {
   //stroke(0);
   noStroke();
-  if ((keyPressed == true) && (key == 'l')) {stroke(0);}
-  if ((keyPressed == true) && (key == 'p')) {seg=15;}
+  if (showVertexEdges) {stroke(0);}
+  if (reducedResolution) {seg=15;}
   
   pushMatrix();
   translate(width/2, height/2);

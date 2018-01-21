@@ -47,7 +47,7 @@ class controlSlider {
   }
   
   void drawMe() {
-    fill(255);
+    fill(150);
     text(value,xpos+diameter+len,ypos+5);
     text(name,xpos-0.5*diameter,ypos-diameter);
     
@@ -63,44 +63,64 @@ class controlSlider {
 
 // Activates once when mouse first clicks
 void mousePressed() {
-  w45min.listenCheck();
-  weq.listenCheck();
-  w45max.listenCheck();
+  if (enableProjection) {
+    w45min.listenCheck();
+    weq.listenCheck();
+    w45max.listenCheck();
+  }
 }
 
 // Activates continuously while mouse is dragging
 void mouseDragged() {
-  w45min.listenMouse();
-  weq.listenMouse();
-  w45max.listenMouse();
+  if (enableProjection) {
+    w45min.listenMouse();
+    weq.listenMouse();
+    w45max.listenMouse();
+  }
 }
 
 // Activates once when mouse is released
 void mouseReleased() {
-  w45min.listening = false;
-  weq.listening = false;
-  w45max.listening = false;
+  if (enableProjection) {
+    w45min.listening = false;
+    weq.listening = false;
+    w45max.listening = false;
+  }
 }
 
 void keyPressed() {
+  if (enableProjection) {
+    switch(key) {
+      case 'q':
+        w45max.listenKey(-1);
+        break;
+      case 'w':
+        w45max.listenKey(+1);
+        break;
+      case 'a':
+        weq.listenKey(-1);
+        break;
+      case 's':
+        weq.listenKey(+1);
+        break;
+      case 'z':
+        w45min.listenKey(-1);
+        break;
+      case 'x':
+        w45min.listenKey(+1);
+        break;
+    }
+  }
+  
   switch(key) {
-    case 'q':
-      w45max.listenKey(-1);
+    case 'p':
+      enableProjection = !enableProjection;
       break;
-    case 'w':
-      w45max.listenKey(+1);
-      break;
-    case 'a':
-      weq.listenKey(-1);
+    case 'l':
+      showVertexEdges = !showVertexEdges;
       break;
     case 's':
-      weq.listenKey(+1);
-      break;
-    case 'z':
-      w45min.listenKey(-1);
-      break;
-    case 'x':
-      w45min.listenKey(+1);
+      reducedResolution = !reducedResolution;
       break;
   }
 }

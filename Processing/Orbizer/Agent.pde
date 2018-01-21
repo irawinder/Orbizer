@@ -15,7 +15,7 @@ class Agent {
     float randomX = random(0, w);
     float randomY = random(0, h);
     location = new PVector(randomX, randomY);
-    float randomSpeed = random(-0.5, 0.5);
+    float randomSpeed = random(-2, 2);
     velocity = new PVector(randomSpeed, 0);
     hue = random(0, 255);
   }
@@ -32,8 +32,8 @@ class Agent {
     canvas.fill(hue, 255, 255);
     canvas.noStroke();
     for (int i=0; i<10; i++) {
-      fill(hue, 255, 255, 255*(9-i)/100.0);
-      canvas.ellipse(location.x - 4*i*velocity.x, location.y - i*velocity.y, 10-i, 10-i);
+      canvas.fill(hue, 255, 255, 255*(9-i)/9.0);
+      canvas.ellipse(location.x - 1.5*i*velocity.x, location.y - i*velocity.y, 5, 5);
     }
   }
 }
