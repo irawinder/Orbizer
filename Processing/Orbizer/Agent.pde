@@ -99,6 +99,7 @@ class Agent {
         break;
       case "flat":
         canvas.ellipse(location.x, location.y, 10, 10);
+        //canvas.ellipse(location.x, location.y, 10*sqrt(tan((location.y/canvas.height-0.5)*PI)*tan((location.y/canvas.height-0.5)*PI)+1), 10);
         break;
   }
   }
