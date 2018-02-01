@@ -16,8 +16,8 @@ ArrayList<Agent> particles;
 int counter;
 
 void setup() {
-  //size(1280, 800, P3D);
-  fullScreen(P3D);
+  size(1280, 800, P3D);
+  //fullScreen(P3D);
   //img = loadImage("Equirectangular_projection_crop.png");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular.png");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png");  // Load the image into the program  
@@ -39,7 +39,6 @@ void setup() {
   
   setupProjection();
   setupSphere();
-  
 }
 
 void draw() {
@@ -120,6 +119,12 @@ void keyPressed() {
     case 'r':
       restoreDefaults();
       break;
+    case 't':
+      saveConfig();
+      break;
+    case 'y':
+      loadConfig();
+      break;
     case 'f':
       showFrameRate = !showFrameRate;
       break;
@@ -137,4 +142,6 @@ void restoreDefaults(){
   defaultProjection();
   defaultSphere();
   rotationFloat = 0;
+  showVertexEdges = false;
+  showReducedResolution = false;
 }
