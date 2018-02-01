@@ -16,15 +16,18 @@ ArrayList<Agent> particles;
 int counter;
 
 void setup() {
-  size(1280, 600, P3D);
-  //fullScreen(P3D);
-  img = loadImage("Equirectangular_projection_crop.png");  // Load the image into the program  
+  //size(1280, 800, P3D);
+  fullScreen(P3D);
+  //img = loadImage("Equirectangular_projection_crop.png");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular.png");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png");  // Load the image into the program  
+  //img = loadImage("Earth_night_homemade.jpg");  // Load the image into the program  
+  img = loadImage("world.topo.bathy.200407.3x5400x2700.jpg");  // Load the image into the program   
   
   canvas = createGraphics(img.width, img.height, P3D);
   
-  displayMode = "flat";
+  showAutoRotate = true;
+  displayMode = "sphere";
   showAgents = true;
   
   particles = new ArrayList<Agent>();
@@ -96,6 +99,11 @@ void draw() {
   //displayProjection();
   counter++;
   if (counter > 3600) counter = 0;
+  
+  // Commands to help you draw 2D UI graphics over 3D objects
+  // These are computationally intense so use sparingly!
+  //hint(ENABLE_DEPTH_TEST);
+  //hint(DISABLE_DEPTH_TEST);
 }
 
 void keyPressed() {
