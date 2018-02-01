@@ -1,14 +1,15 @@
-PImage img;  // Declare variable "img" of type PImage
+PImage img;  // Declare variable "a" of type PImage
 PGraphics canvas;
 
-boolean enableProjection;
-boolean showVertexEdges;
-boolean reducedResolution;
-boolean showFrameRate;
+String displayMode;
 
-controlSlider w45min;
-controlSlider weq;
-controlSlider w45max;
+boolean showVertexEdges;
+boolean showReducedResolution;
+boolean showFrameRate;
+boolean showAutoRotate;
+boolean showAgents;
+
+float rotationFloat;
 
 ArrayList<Agent> particles;
 
@@ -16,43 +17,15 @@ int counter;
 
 void setup() {
   size(1280, 600, P3D);
-  background(0);
   //fullScreen(P3D);
-  
-  img = loadImage("Equirectangular_projection_SW.jpg");  // Load the image into the program  
+  img = loadImage("Equirectangular_projection_crop.png");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular.png");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png");  // Load the image into the program  
   
   canvas = createGraphics(img.width, img.height, P3D);
   
-  int vOffset = 250;
-  int xOffset = 50;
-  
-  w45min = new controlSlider();
-  w45min.name = "Lower Hemisphere Control with Z-X";
-  w45min.xpos = xOffset;
-  w45min.ypos = vOffset + 140;
-  w45min.len = int(0.15*width);
-  w45min.valMin = -90;
-  w45min.valMax = 90;
-  w45min.value = -45;
-  
-  weq = new controlSlider();
-  weq.name = "Equator Control with A-S";
-  weq.xpos = xOffset;
-  weq.ypos = vOffset + 70;
-  weq.len = int(0.15*width);
-  weq.valMin = -90;
-  weq.valMax = 90;
-  
-  w45max = new controlSlider();
-  w45max.name = "Upper Hemisphere Control with Q-W";
-  w45max.xpos = xOffset;
-  w45max.ypos = vOffset;
-  w45max.len = int(0.15*width);
-  w45max.valMin = -90;
-  w45max.valMax = 90;
-  w45max.value = 45;
+  displayMode = "flat";
+  showAgents = true;
   
   particles = new ArrayList<Agent>();
   for (int i=0; i<100; i++) {
@@ -61,91 +34,99 @@ void setup() {
     particles.add(a);
   }
   
-  enableProjection = true;;
-  showVertexEdges = false;
-  reducedResolution = false;
-  showFrameRate = false;
+  setupProjection();
+  setupSphere();
+  
 }
 
 void draw() {
   background(0);
+
+  fill(255);
   
   canvas.beginDraw();
   canvas.background(0);
   canvas.colorMode(HSB);
   canvas.image(img, 0, 0);
-  for (Agent a: particles) {
-    a.update();
-    a.draw();
+  
+  if(showAgents){
+    for (Agent a: particles) {
+      a.update3d();
+      a.drawMode();
+    }
   }
+  //Draw on canvas here
+  canvas.stroke(0,0,0,255);
+  canvas.strokeWeight(2);
+
+  drawLine(42.3, -71, 43.6, 1.4, 10); //Boston to Toulouse
+  /*
+  drawLine(35.7,139.7, 34.1, -118.0, 10); //Tokyo to LA
+  drawLine(47.6, -122.3, 55.8, 37.1, 30); //Seattle to Moscow
+  drawLine(28.7, 77.1, -33.9, 18.4, 20); //Dehli to Cape Town
+  //drawLine(-51.8, -59.5,-33.9, 151.2,  20); //Falkland Islands to Sydney
+  drawLine(-33.9, 151.2,-51.8, -59.5,  20); //Sydney to Falkland Islands
+  */
+  if(displayMode == "flat") {
+    drawLine(42.3, -71,(float(height-mouseY)/height*180-90), (float(mouseX)/width*360-180),  40); //Boston to Mouse Position
+  }
+  
+  canvas.text("Can you read this?",canvas.width/2,canvas.height/2);
+  
+
+  
+  stroke(0,0,0,255);
   canvas.endDraw();
   
-  if (enableProjection) {
-    drawProjection(w45min.value,weq.value,w45max.value, 200);
-    w45min.drawMe();
-    weq.drawMe();
-    w45max.drawMe();
-  } else {
-    image(canvas, 0, 0, width, height);
+  switch(displayMode) {
+      case "projection":
+        displayProjection();
+        break;
+      case "sphere":
+        displaySphere();
+        break;
+      case "flat":
+        displayFlat();
+        break;
   }
   
-  fill(255,200);
-  String projectionHelp = "";
-  String frameRt = "";
-  if (enableProjection) {
-    projectionHelp = "\nPress ' l ' to show or hide graphics vertices\n" +
-                       "Press ' s ' to reduce or increase resolution\n" +
-                       "Press ' r ' to reset callibration";
-  }
-  if (showFrameRate) {
-    frameRt = "\n\nFramerate: " + frameRate;
-  }
   text("Orbizer | Spherical Projection Mapping\n" +
-       "Mike and Ira Winder\noncue.design\n\n" +
-       "Press ' p ' to toggle spherical projection map\n" +
-       "Press ' f ' to show or hide framerate" + 
-       projectionHelp + frameRt, 50-12.5, 50);
+       "Mike and Ira Winder\noncue.design",37,50);
+       
+  //displayProjection();
+  counter++;
+  if (counter > 3600) counter = 0;
 }
 
-
-//
-void drawProjection(float botWarp, float equatorWarp, float topWarp, int seg) {
-  //stroke(0);
-  noStroke();
-  if (showVertexEdges) {stroke(0);}
-  if (reducedResolution) {seg=15;}
-  
-  pushMatrix();
-  translate(width/2, height/2);
-  
-  drawCircle(0,                               height*(90-topWarp)/360,         0,                  img.height/4,    seg); //center
-  drawCircle(height*(90-topWarp)/360,         height*(90-equatorWarp)/360,     img.height/4,       img.height/2,    seg); // north of equator
-  drawCircle(height*(90-equatorWarp)/360,     height*(90-botWarp)/360,         img.height/2,       img.height*3/4,  seg); //south of equator
-  drawCircle(height*(90-botWarp)/360,         height/2,                        img.height*3/4,     img.height,      seg); //outside edge
-  popMatrix();
-}
-
-
-void drawCircle(float innerR,float outerR,int texTop, int texBot, int segments) {
-  
-  //This maybe saves some cpu math
-  float segmentAngle = 2*PI/segments;
-  
-  beginShape(TRIANGLE_STRIP);
-  texture(canvas);
-  for(int i=0; i<=segments;i++) {
-    vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, i*img.width/segments, texBot);
-    vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, i*img.width/segments, texTop);
+void keyPressed() {
+    switch(key) {
+    case 'l':
+      showVertexEdges = !showVertexEdges;
+      break;
+    case 's':
+      showReducedResolution = !showReducedResolution;
+      break;
+    case 'a':
+      showAgents = !showAgents;
+      break;
+    case 'r':
+      restoreDefaults();
+      break;
+    case 'f':
+      showFrameRate = !showFrameRate;
+      break;
+    case 'o':
+      showAutoRotate = !showAutoRotate;
+      break;
+    case 'm':  //display mode toggles Projection -> Sphere -> Flat
+      if(displayMode == "projection") {displayMode = "sphere"; break;}
+      if(displayMode == "sphere") {displayMode = "flat"; break;}
+      if(displayMode == "flat") {displayMode = "projection"; break;}
   }
-  endShape();
 }
 
-float getX(float radius, float theta) {
-  float x = sin(theta)*radius;
-  return x;
-}
-
-float getY(float radius, float theta) {
-  float y = cos(theta)*radius;
-  return y;
+void restoreDefaults(){
+  defaultProjection();
+  defaultSphere();
+  rotationFloat = 0;
 }
