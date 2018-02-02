@@ -1,4 +1,3 @@
-
 //Lat Lon to canvas position
 float lattoCanvasY(float lat) {
   return canvas.height*(1.0-(lat+90)/180.0);

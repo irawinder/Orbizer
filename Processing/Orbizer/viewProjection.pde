@@ -1,5 +1,3 @@
-
-
 controlSlider w45min;
 controlSlider weq;
 controlSlider w45max;
@@ -9,16 +7,12 @@ controlSlider translateY;
 controlSlider rotate;
 controlSlider zoom;
 
-
-
-
-
 void setupProjection() {
   
   int xOffset = 50;
   int vOffset = 300;
   int vGap = 70;
-  int sWidth = int(0.35*(width - height));
+  int sWidth = int(0.3*(width - height));
   
   w45max = new controlSlider();
   w45max.name = "Upper Hemisphere Control";
@@ -107,10 +101,16 @@ void setupProjection() {
 
 void displayProjection(){
   
+  drawProjection(w45min.value,weq.value,w45max.value, 200);
+  
+  // Command to help you draw 2D UI graphics over 3D objects
+  // This are computationally intense so use sparingly!
+  hint(DISABLE_DEPTH_TEST);
+  
   fill(255,200);
   
   String frameRt = "";
-
+  
   if (showFrameRate) {
     frameRt = "\n\nFramerate: " + frameRate;
   }
@@ -124,8 +124,6 @@ void displayProjection(){
        "Press ' t ' to save configuration\n" +
        "Press ' y ' to load last saved configuration" +
        frameRt, 37, 110);
-
-
   
   w45min.listen();
   w45min.drawMe();
@@ -148,7 +146,7 @@ void displayProjection(){
   rotate.listen();
   rotate.drawMe();
   
-  drawProjection(w45min.value,weq.value,w45max.value, 200);
+  hint(ENABLE_DEPTH_TEST);
 }
 
 void drawProjection(float botWarp, float equatorWarp, float topWarp, int seg) {

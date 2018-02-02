@@ -7,7 +7,7 @@ void setupSphere(){
   int xOffset = 50;
   int vOffset = 300;
   int vGap = 70;
-  int sWidth = int(0.35*(width - height));
+  int sWidth = int(0.3*(width - height));
   
   zoom3d = new controlSlider();
   zoom3d.name = "Scale %";
@@ -18,7 +18,7 @@ void setupSphere(){
   zoom3d.ypos = vOffset;
   zoom3d.valMin = 0;
   zoom3d.valMax = 500;
-  zoom3d.value = 200;
+  zoom3d.value = 0.4*height;
   
   vOffset += vGap;
   pitch3d = new controlSlider();
@@ -47,7 +47,13 @@ void setupSphere(){
 
 
 void displaySphere() {
-
+  
+  drawSphere(30,60);
+  
+  // Command to help you draw 2D UI graphics over 3D objects
+  // This are computationally intense so use sparingly!
+  hint(DISABLE_DEPTH_TEST);
+  
   fill(255,200);
   
   String frameRt = "";
@@ -74,8 +80,7 @@ void displaySphere() {
   rotate3d.listen();
   rotate3d.drawMe();
   
-  
-  drawSphere(30,60);
+  hint(ENABLE_DEPTH_TEST);
   
 
 }
@@ -141,7 +146,7 @@ float getZ3D(float phi, float theta){
 }
 
 void defaultSphere() {
-  zoom3d.value = 200;
+  zoom3d.value = 0.4*height;
   pitch3d.value = 45;
   rotate3d.value = 180;
 }

@@ -1,4 +1,3 @@
-
 void displayFlat() {
   
   image(canvas, 0, 0, width, height);
