@@ -1,3 +1,8 @@
+String version = "v0.9";
+
+String label = "Orbizer | Spherical Projection Mapping, " + version + "\n" +
+               "Mike and Ira Winder\noncue.design"; 
+
 PImage img;
 PGraphics canvas;
 
@@ -96,8 +101,7 @@ void draw() {
   }
   
   hint(DISABLE_DEPTH_TEST);
-  text("Orbizer | Spherical Projection Mapping\n" +
-       "Mike and Ira Winder\noncue.design",37,50);
+  text(label,37,50);
   hint(ENABLE_DEPTH_TEST);
        
   //displayProjection();
