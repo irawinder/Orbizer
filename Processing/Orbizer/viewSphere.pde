@@ -6,36 +6,40 @@ void setupSphere(){
   
   int xOffset = 50;
   int vOffset = 300;
+  int vGap = 70;
+  int sWidth = int(0.35*(width - height));
   
   zoom3d = new controlSlider();
   zoom3d.name = "Scale %";
   //zoom3d.keyPlus = 'w';
   //zoom3d.keyMinus = 'q';
-  zoom3d.len = int(0.15*width);
+  zoom3d.len = sWidth;
   zoom3d.xpos = xOffset;
   zoom3d.ypos = vOffset;
   zoom3d.valMin = 0;
   zoom3d.valMax = 500;
   zoom3d.value = 200;
   
+  vOffset += vGap;
   pitch3d = new controlSlider();
   pitch3d.name = "Pitch";
   //pitch3d.keyPlus = 'w';
   //pitch3d.keyMinus = 'q';
-  pitch3d.len = int(0.15*width);
+  pitch3d.len = sWidth;
   pitch3d.xpos = xOffset;
-  pitch3d.ypos = vOffset+70;
+  pitch3d.ypos = vOffset;
   pitch3d.valMin = -90;
   pitch3d.valMax = 90;
   pitch3d.value = 45;
   
+  vOffset += vGap;
   rotate3d = new controlSlider();
   rotate3d.name = "Rotate";
   //rotate3d.keyPlus = 'w';
   //rotate3d.keyMinus = 'q';
-  rotate3d.len = int(0.15*width);
+  rotate3d.len = sWidth;
   rotate3d.xpos = xOffset;
-  rotate3d.ypos = vOffset+140;
+  rotate3d.ypos = vOffset;
   rotate3d.valMin = 0;
   rotate3d.valMax = 360;
   rotate3d.value = 180;
@@ -56,7 +60,9 @@ void displaySphere() {
        "Press ' s ' to reduce or increase resolution\n" +
        "Press ' o ' to enable AutoRotation\n" +
        "Press ' r ' to reset callibration\n" +
-       "Press ' a ' to show or hide agents" +
+       "Press ' a ' to show or hide agents\n" +
+       "Press ' t ' to save configuration\n" +
+       "Press ' y ' to load last saved configuration" +
        frameRt, 37, 110);
   
   pitch3d.listen();

@@ -16,8 +16,8 @@ ArrayList<Agent> particles;
 int counter;
 
 void setup() {
-  size(1280, 800, P3D);
-  //fullScreen(P3D);
+  //size(1280, 800, P3D);
+  fullScreen(P3D);
   //img = loadImage("Equirectangular_projection_crop.png");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular.png");  // Load the image into the program  
   //img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png");  // Load the image into the program  

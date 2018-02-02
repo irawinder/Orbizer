@@ -17,27 +17,8 @@ void setupProjection() {
   
   int xOffset = 50;
   int vOffset = 300;
-  
-  w45min = new controlSlider();
-  w45min.name = "Lower Hemisphere Control";
-  //w45min.keyPlus = 'x';
-  //w45min.keyMinus = 'z';
-  w45min.xpos = xOffset;
-  w45min.ypos = vOffset+140;
-  w45min.len = int(0.15*width);
-  w45min.valMin = -90;
-  w45min.valMax = 90;
-  w45min.value = -45;
-  
-  weq = new controlSlider();
-  weq.name = "Equator Control";
-  //weq.keyPlus = 's';
-  //weq.keyMinus = 'a';
-  weq.xpos = xOffset;
-  weq.ypos = vOffset+70;
-  weq.len = int(0.15*width);
-  weq.valMin = -90;
-  weq.valMax = 90;
+  int vGap = 70;
+  int sWidth = int(0.35*(width - height));
   
   w45max = new controlSlider();
   w45max.name = "Upper Hemisphere Control";
@@ -45,51 +26,78 @@ void setupProjection() {
   //w45max.keyMinus = 'q';
   w45max.xpos = xOffset;
   w45max.ypos = vOffset;
-  w45max.len = int(0.15*width);
+  w45max.len = sWidth;
   w45max.valMin = -90;
   w45max.valMax = 90;
   w45max.value = 45;
   
+  vOffset += vGap;
+  weq = new controlSlider();
+  weq.name = "Equator Control";
+  //weq.keyPlus = 's';
+  //weq.keyMinus = 'a';
+  weq.xpos = xOffset;
+  weq.ypos = vOffset;
+  weq.len = sWidth;
+  weq.valMin = -90;
+  weq.valMax = 90;
+  
+  vOffset += vGap;
+  w45min = new controlSlider();
+  w45min.name = "Lower Hemisphere Control";
+  //w45min.keyPlus = 'x';
+  //w45min.keyMinus = 'z';
+  w45min.xpos = xOffset;
+  w45min.ypos = vOffset;
+  w45min.len = sWidth;
+  w45min.valMin = -90;
+  w45min.valMax = 90;
+  w45min.value = -45;
+  
+  vOffset += vGap;
   translateX = new controlSlider();
   translateX.name = "Translate X";
   //translateX.keyPlus = 'w';
   //translateX.keyMinus = 'q';
-  translateX.len = int(0.15*width);
-  translateX.xpos = width-xOffset-translateX.len;
+  translateX.len = sWidth;
+  translateX.xpos = xOffset;
   translateX.ypos = vOffset;
   translateX.valMin = -100;
   translateX.valMax = 100;
   translateX.value = 0;
   
+  vOffset += vGap;
   translateY = new controlSlider();
   translateY.name = "Translate Y";
   //translateY.keyPlus = 'w';
   //translateY.keyMinus = 'q';
-  translateY.len = int(0.15*width);
-  translateY.xpos = width-xOffset-translateY.len;
-  translateY.ypos = vOffset+70;
+  translateY.len = sWidth;
+  translateY.xpos = xOffset;
+  translateY.ypos = vOffset;
   translateY.valMin = -100;
   translateY.valMax = 100;
   translateY.value = 0;
   
+  vOffset += vGap;
   zoom = new controlSlider();
   zoom.name = "Scale %";
   //zoom.keyPlus = 'w';
   //zoom.keyMinus = 'q';
-  zoom.len = int(0.15*width);
-  zoom.xpos = width-xOffset-zoom.len;
-  zoom.ypos = vOffset+140;
+  zoom.len = sWidth;
+  zoom.xpos = xOffset;
+  zoom.ypos = vOffset;
   zoom.valMin = 0;
   zoom.valMax = 150;
   zoom.value = 100;
   
+  vOffset += vGap;
   rotate = new controlSlider();
   rotate.name = "Rotate";
   //rotate.keyPlus = 'w';
   //rotate.keyMinus = 'q';
-  rotate.len = int(0.15*width);
-  rotate.xpos = width-xOffset-rotate.len;
-  rotate.ypos = vOffset+210;
+  rotate.len = sWidth;
+  rotate.xpos = xOffset;
+  rotate.ypos = vOffset;
   rotate.valMin = 0;
   rotate.valMax = 360;
   rotate.value = 0;
@@ -112,7 +120,9 @@ void displayProjection(){
        "Press ' s ' to reduce or increase resolution\n" +
        "Press ' o ' to enable AutoRotation\n" +
        "Press ' r ' to reset callibration\n" +
-       "Press ' a ' to show or hide agents" +
+       "Press ' a ' to show or hide agents\n" +
+       "Press ' t ' to save configuration\n" +
+       "Press ' y ' to load last saved configuration" +
        frameRt, 37, 110);
 
 
