@@ -89,16 +89,17 @@ class Agent {
   void drawMode() {
     canvas.fill(hue, 255, 255);
     canvas.noStroke();
+    int diameter = 5;
     switch(displayMode) {
       case "projection":
         //canvas.ellipse(location.x, location.y, 25*(tan((1-location.y/canvas.height)*PI/2)+1), 25);
-        canvas.ellipse(location.x, location.y, 10, 10);
+        canvas.ellipse(location.x, location.y, diameter, diameter);
         break;
       case "sphere":
-        canvas.ellipse(location.x, location.y, 10*sqrt(tan((location.y/canvas.height-0.5)*PI)*tan((location.y/canvas.height-0.5)*PI)+1), 10);
+        canvas.ellipse(location.x, location.y, diameter*sqrt(tan((location.y/canvas.height-0.5)*PI)*tan((location.y/canvas.height-0.5)*PI)+1), diameter);
         break;
       case "flat":
-        canvas.ellipse(location.x, location.y, 10, 10);
+        canvas.ellipse(location.x, location.y, diameter, diameter);
         //canvas.ellipse(location.x, location.y, 10*sqrt(tan((location.y/canvas.height-0.5)*PI)*tan((location.y/canvas.height-0.5)*PI)+1), 10);
         break;
   }

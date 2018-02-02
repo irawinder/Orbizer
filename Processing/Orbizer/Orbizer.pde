@@ -31,7 +31,7 @@ void setup() {
   showAgents = true;
   
   particles = new ArrayList<Agent>();
-  for (int i=0; i<100; i++) {
+  for (int i=0; i<200; i++) {
     Agent a = new Agent(img.width, img.height);
     a.randomInit();
     particles.add(a);
