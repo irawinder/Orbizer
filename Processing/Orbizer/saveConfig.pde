@@ -78,31 +78,36 @@ void saveConfig() {
 }
 
 void loadConfig() {
-  config = loadTable("config.csv","header");
   
-  //DisplayMode
-  //displayMode = config.getString(0,1);
+  File f = new File(dataPath("config.csv"));
+  if(f.exists()) { 
+
+    config = loadTable("config.csv","header");
   
-  //Booleans 5 values
-  showVertexEdges = boolean(config.getInt(1,1));
-  showReducedResolution = boolean(config.getInt(2,1));
-  showFrameRate = boolean(config.getInt(3,1));
-  showAutoRotate = boolean(config.getInt(4,1));
-  showAgents = boolean(config.getInt(5,1));
+    //DisplayMode
+    //displayMode = config.getString(0,1);
   
-  //Sphere 3 values
-  pitch3d.value = config.getFloat(6,1);
-  zoom3d.value = config.getFloat(7,1);
-  rotate3d.value = config.getFloat(8,1);
+    //Booleans 5 values
+    showVertexEdges = boolean(config.getInt(1,1));
+    showReducedResolution = boolean(config.getInt(2,1));
+    showFrameRate = boolean(config.getInt(3,1));
+    showAutoRotate = boolean(config.getInt(4,1));
+    showAgents = boolean(config.getInt(5,1));
   
-  //Projection 7 values
-  w45min.value = config.getFloat(9,1);
-  weq.value = config.getFloat(10,1);
-  w45max.value = config.getFloat(11,1);
+    //Sphere 3 values
+    pitch3d.value = config.getFloat(6,1);
+    zoom3d.value = config.getFloat(7,1);
+    rotate3d.value = config.getFloat(8,1);
   
-  translateX.value = config.getFloat(12,1);
-  translateY.value = config.getFloat(13,1);
-  rotate.value = config.getFloat(14,1);
-  zoom.value = config.getFloat(15,1);
+    //Projection 7 values
+    w45min.value = config.getFloat(9,1);
+    weq.value = config.getFloat(10,1);
+    w45max.value = config.getFloat(11,1);
   
+    translateX.value = config.getFloat(12,1);
+    translateY.value = config.getFloat(13,1);
+    rotate.value = config.getFloat(14,1);
+    zoom.value = config.getFloat(15,1);
+  }
+  else restoreDefaults();
 }
