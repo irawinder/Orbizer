@@ -147,6 +147,39 @@ void keyPressed() {
   }
 }
 
+void mousePressed() {
+  if(displayMode == "projection") {
+    w45min.listenClick();
+    weq.listenClick();
+    w45max.listenClick();
+
+    translateX.listenClick();
+    translateY.listenClick();
+    rotate.listenClick();
+    zoom.listenClick();
+  }
+  else if(displayMode == "sphere") {
+    pitch3d.listenClick();
+    rotate3d.listenClick();
+    zoom3d.listenClick();
+  }
+}
+
+void mouseReleased() {
+  w45min.isDragged = false;
+  weq.isDragged = false;
+  w45max.isDragged = false;
+
+  translateX.isDragged = false;
+  translateY.isDragged = false;
+  rotate.isDragged = false;
+  zoom.isDragged = false;
+  
+  pitch3d.isDragged = false;
+  rotate3d.isDragged = false;
+  zoom3d.isDragged = false;
+}
+
 void restoreDefaults(){
   defaultProjection();
   defaultSphere();
