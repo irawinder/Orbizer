@@ -7,6 +7,7 @@ class controlSlider {
   
   char keyMinus;
   char keyPlus;
+  boolean isDragged;
   
   int valMin;
   int valMax;
@@ -20,26 +21,29 @@ class controlSlider {
     diameter = 25;
     keyMinus = '-';
     keyPlus = '+';
+    isDragged = false;
     valMin = 0;
     valMax = 0;
     value = 0;
   }
   
   void listen() {
-      //Keyboard Controls
-  if ((keyPressed == true) && (key == keyMinus)) {value--;}
-  if ((keyPressed == true) && (key == keyPlus)) {value++;}
-  
-  //Math sucks to keep the range and scale of the slider arbitrary
-  if (mousePressed) {
-    //if(Math.pow((mouseX-(xpos+len*(value-valMin)/(valMax-valMin))),2.0)+Math.pow((mouseY-ypos),2) < 255) {
-    if((mouseY > (ypos-diameter/2)) && (mouseY < (ypos+diameter/2)) && (mouseX > (xpos-diameter/2)) && (mouseX < (xpos+len+diameter/2))) {
-      value = (mouseX-xpos)*(valMax-valMin)/len+valMin;
+    //Keyboard Controls
+    if ((keyPressed == true) && (key == keyMinus)) {value--;}
+    if ((keyPressed == true) && (key == keyPlus)) {value++;}
+    
+    if (isDragged) {
+    value = (mouseX-xpos)*(valMax-valMin)/len+valMin;
     }
+  
+    if(value < valMin) value = valMin;
+    if(value > valMax) value = valMax;
   }
   
-  if(value < valMin) value = valMin;
-  if(value > valMax) value = valMax;
+  void listenClick() {
+    if((mouseY > (ypos-diameter/2)) && (mouseY < (ypos+diameter/2)) && (mouseX > (xpos-diameter/2)) && (mouseX < (xpos+len+diameter/2))) {
+      isDragged = true;
+    }
   }
   
   void drawMe() {
