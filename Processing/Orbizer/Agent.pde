@@ -3,7 +3,8 @@ class Agent {
   int w, h;
   float hue;
   
-  float bearing, speed;
+  float bearing, speed, duration;
+  boolean willEnd;
   
   Agent(int w, int h) {
     this.w = w;
@@ -14,6 +15,8 @@ class Agent {
     bearing = 90;
     speed = 0;
     hue = 0;
+    duration = 0; //Duration will be measured in frames, with a possible timescale option later
+    willEnd = false;
   }
   
   void randomInit() {
@@ -31,7 +34,20 @@ class Agent {
     bearing = random(0,360); //Azimuth in degrees as a compass
     speed = random(0.1,0.5); //speed in degrees per second
 
+    willEnd = false;
     hue = random(0, 255);
+    
+    location = latlontoCanvasXY(alatlon);
+  }
+  
+  void flightInit(float lat1, float lon1, float lat2, float lon2, float flightTime) {
+    alatlon = new PVector(lat1, lon1);
+    bearing = calcBearing(lat1, lon1, lat2, lon2);
+    speed = calcAngDist(lat1, lon1, lat2, lon2)/flightTime;
+    duration = flightTime;
+
+    willEnd = true;
+    hue = 100;
     
     location = latlontoCanvasXY(alatlon);
   }
@@ -66,6 +82,10 @@ class Agent {
     
     if(alatlon.y > 180.0) alatlon.y -= 360;
     else if(alatlon.y < -180.0) alatlon.y += 360;
+    
+    if(willEnd) {
+      duration--;
+    }
 
     location = latlontoCanvasXY(alatlon);
   }
