@@ -11,3 +11,9 @@ PVector latlontoCanvasXY(PVector latlon) {
   PVector pos = new PVector(lontoCanvasX(latlon.y), lattoCanvasY(latlon.x));
   return pos;
 }
+
+PVector windowXYtolatlon(float x, float y) {
+  //drawLine(42.3, -71,(float(height-mouseY)/height*180-90), (float(mouseX)/width*360-180),  40);
+  PVector LL = new PVector(((height-y)/height*180.0-90), ((x)/width*360.0-180));
+  return LL;
+}

@@ -16,13 +16,11 @@ boolean showAgents;
 
 float rotationFloat;
 
-ArrayList<Agent> particles;
-
 int counter;
 
 void setup() {
-  //size(1280, 800, P3D);
-  fullScreen(P3D);
+  size(1280, 800, P3D);
+  //fullScreen(P3D);
   
   // Load the image into the program 
   //
@@ -35,15 +33,11 @@ void setup() {
   canvas = createGraphics(img.width, img.height, P3D);
   
   showAutoRotate = true;
-  displayMode = "sphere";
+  displayMode = "flat";
   showAgents = true;
   
-  particles = new ArrayList<Agent>();
-  for (int i=0; i<200; i++) {
-    Agent a = new Agent(img.width, img.height);
-    a.randomInit();
-    particles.add(a);
-  }
+  //setupParticles();
+  setupFlights();
   
   setupProjection();
   setupSphere();
@@ -59,12 +53,9 @@ void draw() {
   canvas.colorMode(HSB);
   canvas.image(img, 0, 0);
   
-  if(showAgents){
-    for (Agent a: particles) {
-      a.update3d();
-      a.drawMode();
-    }
-  }
+  //updateParticles();
+  updateFlights();
+  
   //Draw on canvas here
   canvas.stroke(0,0,0,255);
   canvas.strokeWeight(2);
@@ -81,8 +72,8 @@ void draw() {
     drawLine(42.3, -71,(float(height-mouseY)/height*180-90), (float(mouseX)/width*360-180),  40); //Boston to Mouse Position
   }
   
+  canvas.stroke(255,255,255);
   canvas.text("Can you read this?",canvas.width/2,canvas.height/2);
-  
 
   
   stroke(0,0,0,255);
@@ -162,6 +153,11 @@ void mousePressed() {
     pitch3d.listenClick();
     rotate3d.listenClick();
     zoom3d.listenClick();
+  }
+  else if(displayMode == "flat") {
+    PVector latlon = new PVector();
+    latlon = windowXYtolatlon(mouseX, mouseY);
+    spawnFlight(42.3, -71, latlon.x, latlon.y, 180);
   }
 }
 

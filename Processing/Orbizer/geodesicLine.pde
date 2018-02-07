@@ -49,6 +49,17 @@ PVector calcInter(float lt1, float ln1, float lt2, float ln2, float d, float f) 
   return point;
 }
 
+float calcBearing(float lt1, float ln1, float lt2, float ln2) {
+  float c = PI/180;
+  return atan2( sin((ln2-ln1)*c) * cos(lt2*c),  cos(lt1*c)*sin(lt2*c) - sin(lt1*c)*cos(lt2*c)*cos((ln2-ln1)*c))/c;
+}
+
+float calcAngDist(float lt1, float ln1, float lt2, float ln2) {
+  float c = PI/180;
+  float a = sin((lt1-lt2)*c/2)*sin((lt1-lt2)*c/2) + cos(lt1*c)*cos(lt2*c) * sin((ln1-ln2)*c/2)*sin((ln1-ln2)*c/2);
+  return 2*atan2(sqrt(a),sqrt(1-a))/c;
+}
+
 PVector latlontoUV(PVector latlon) {
   PVector UV = new PVector();
   UV.x = (latlon.y*180/PI+180)*img.width/360;
