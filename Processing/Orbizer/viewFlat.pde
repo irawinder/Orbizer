@@ -14,6 +14,7 @@ void displayFlat() {
        "Press ' a ' to show or hide agents\n" +
        "Press ' t ' to save configuration\n" +
        "Press ' y ' to load last saved configuration" +
+       "\nFlightTime " + ftime +
        frameRt, 37, 110);
   
 }

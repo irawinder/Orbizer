@@ -14,6 +14,8 @@ boolean showFrameRate;
 boolean showAutoRotate;
 boolean showAgents;
 
+boolean showFlightTable2016;
+
 float rotationFloat;
 
 int counter;
@@ -38,6 +40,7 @@ void setup() {
   
   //setupParticles();
   setupFlights();
+  openFlightTable();
   
   setupProjection();
   setupSphere();
@@ -157,7 +160,7 @@ void mousePressed() {
   else if(displayMode == "flat") {
     PVector latlon = new PVector();
     latlon = windowXYtolatlon(mouseX, mouseY);
-    spawnFlight(42.3, -71, latlon.x, latlon.y, 180);
+    spawnFlight(42.3, -71, latlon.x, latlon.y, 180, 255);
   }
 }
 

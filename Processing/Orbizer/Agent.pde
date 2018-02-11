@@ -40,14 +40,14 @@ class Agent {
     location = latlontoCanvasXY(alatlon);
   }
   
-  void flightInit(float lat1, float lon1, float lat2, float lon2, float flightTime) {
+  void flightInit(float lat1, float lon1, float lat2, float lon2, float flightTime, int fhue) {
     alatlon = new PVector(lat1, lon1);
     bearing = calcBearing(lat1, lon1, lat2, lon2);
     speed = calcAngDist(lat1, lon1, lat2, lon2)/flightTime;
     duration = flightTime;
 
     willEnd = true;
-    hue = 100;
+    hue = fhue;
     
     location = latlontoCanvasXY(alatlon);
   }
