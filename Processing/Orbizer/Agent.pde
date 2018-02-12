@@ -107,9 +107,9 @@ class Agent {
   }
   
   void drawMode() {
-    canvas.fill(hue, 255, 255, 255);
-    canvas.stroke(0, 150);
-    canvas.strokeWeight(1);
+    canvas.fill(hue, 255, 255, 200);
+    canvas.stroke(0, 200);
+    canvas.strokeWeight(2);
     int diameter = 6;
     switch(displayMode) {
       case "projection":
