@@ -38,7 +38,6 @@ void openFlightTable() {
       
     showFlightTable2016 = true;
     
-    
     br = new BufferedReader(fr);
       
     fLLOrig = new PVector();
@@ -63,7 +62,7 @@ void getFlightTableLine()  {
       currentLine = br.readLine();
   }
   catch(IOException currentlineNull) {
-    System.out.println("line not fount");
+    System.out.println("line not found");
   }
 
   if(currentLine != null) {

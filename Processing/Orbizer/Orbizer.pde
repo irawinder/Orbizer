@@ -27,10 +27,11 @@ void setup() {
   // Load the image into the program 
   //
   //img = loadImage("Equirectangular_projection_crop.png");  
-  //img = loadImage("2000px-BlankMap-World6-Equirectangular.png");
-  //img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png"); 
+  //img = loadImage("2000px-BlankMap-World6-Equirectangular.png"); //Not accurate!
+  //img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png"); //Not accurate!
   //img = loadImage("Earth_night_homemade.jpg");   
-  img = loadImage("world.topo.bathy.200407.3x5400x2700.jpg");  
+  img = loadImage("world.topo.bathy.200407.3x5400x2700.jpg");
+  img.filter(GRAY);
   
   canvas = createGraphics(img.width, img.height, P3D);
   
@@ -56,14 +57,11 @@ void draw() {
   canvas.colorMode(HSB);
   canvas.image(img, 0, 0);
   
-  //updateParticles();
-  updateFlights();
-  
   //Draw on canvas here
   canvas.stroke(0,0,0,255);
   canvas.strokeWeight(2);
 
-  drawLine(42.3, -71, 43.6, 1.4, 10); //Boston to Toulouse
+  //drawLine(42.3, -71, 43.6, 1.4, 10); //Boston to Toulouse
   /*
   drawLine(35.7,139.7, 34.1, -118.0, 10); //Tokyo to LA
   drawLine(47.6, -122.3, 55.8, 37.1, 30); //Seattle to Moscow
@@ -75,9 +73,11 @@ void draw() {
     drawLine(42.3, -71,(float(height-mouseY)/height*180-90), (float(mouseX)/width*360-180),  40); //Boston to Mouse Position
   }
   
-  canvas.stroke(255,255,255);
-  canvas.text("Can you read this?",canvas.width/2,canvas.height/2);
-
+  //canvas.stroke(255,255,255);
+  //canvas.text("Can you read this?",canvas.width/2,canvas.height/2);
+  
+  //updateParticles();
+  updateFlights();
   
   stroke(0,0,0,255);
   canvas.endDraw();

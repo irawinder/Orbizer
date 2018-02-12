@@ -20,7 +20,7 @@ void drawLine(float lat1, float lon1,float lat2, float lon2, int segments) {
   newUV = latlontoUV(latlon);
   oldUV = newUV;
   
-  canvas.stroke(#FFFF00, 150);
+  canvas.stroke(#FFFFFF, 100);
   canvas.strokeWeight(3);
   
   for(int i=0;i<=segments;i++) {  

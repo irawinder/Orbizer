@@ -107,9 +107,10 @@ class Agent {
   }
   
   void drawMode() {
-    canvas.fill(hue, 255, 255);
-    canvas.noStroke();
-    int diameter = 5;
+    canvas.fill(hue, 255, 255, 255);
+    canvas.stroke(0, 150);
+    canvas.strokeWeight(1);
+    int diameter = 6;
     switch(displayMode) {
       case "projection":
         //canvas.ellipse(location.x, location.y, 25*(tan((1-location.y/canvas.height)*PI/2)+1), 25);
