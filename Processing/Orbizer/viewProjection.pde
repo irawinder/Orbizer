@@ -187,8 +187,10 @@ void drawCircle(float innerR,float outerR,int texTop, int texBot, int segments) 
   beginShape(TRIANGLE_STRIP);
   texture(canvas);
   for(int i=0; i<=segments;i++) {
-    vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, i*img.width/segments, texBot);
-    vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, i*img.width/segments, texTop);
+    vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, img.width - i*img.width/segments, texBot);
+    vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, img.width - i*img.width/segments, texTop);
+    //vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, i*img.width/segments, texBot);
+    //vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, i*img.width/segments, texTop);
   }
   endShape();
 }
