@@ -1,4 +1,4 @@
-String version = "v0.9";
+String version = "v0.9.1";
 
 String label = "Orbizer | Spherical Projection Mapping, " + version + "\n" +
                "Mike and Ira Winder\noncue.design"; 
@@ -21,8 +21,8 @@ float rotationFloat;
 int counter;
 
 void setup() {
-  size(1280, 800, P3D);
-  //fullScreen(P3D);
+  //size(1280, 800, P3D);
+  fullScreen(P3D);
   
   // Load the image into the program 
   //
@@ -31,7 +31,7 @@ void setup() {
   //img = loadImage("2000px-BlankMap-World6-Equirectangular_night.png"); //Not accurate!
   //img = loadImage("Earth_night_homemade.jpg");   
   img = loadImage("world.topo.bathy.200407.3x5400x2700.jpg");
-  img.filter(GRAY);
+  //img.filter(GRAY);
   
   canvas = createGraphics(img.width, img.height, P3D);
   
