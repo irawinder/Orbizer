@@ -5,6 +5,7 @@ String label = "Orbizer | Spherical Projection Mapping, " + version + "\n" +
 
 PImage img;
 PGraphics canvas;
+PGraphics staticLayer;
 
 String displayMode;
 
@@ -21,8 +22,8 @@ float rotationFloat;
 int counter;
 
 void setup() {
-  //size(1280, 800, P3D);
-  fullScreen(P3D);
+  size(1280, 800, P3D);
+  //fullScreen(P3D);
   
   // Load the image into the program 
   //
@@ -38,6 +39,11 @@ void setup() {
   showAutoRotate = true;
   displayMode = "flat";
   showAgents = true;
+  
+ // processAirportData();
+ // processRouteData();
+ // createStaticLayer(); //must be called AFTER data is processed
+  
   
   //setupParticles();
   setupFlights();
@@ -56,6 +62,9 @@ void draw() {
   canvas.background(0);
   canvas.colorMode(HSB);
   canvas.image(img, 0, 0);
+  //canvas.image(staticLayer.get(),0,0);
+  //drawCitiesCanvas();
+  //drawRoutesCanvas();
   
   //Draw on canvas here
   canvas.stroke(0,0,0,255);
