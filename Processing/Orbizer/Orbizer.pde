@@ -40,7 +40,7 @@ void setup() {
   displayMode = "flat";
   showAgents = true;
   
- // processAirportData();
+  processAirportData();
  // processRouteData();
  // createStaticLayer(); //must be called AFTER data is processed
   
@@ -63,7 +63,7 @@ void draw() {
   canvas.colorMode(HSB);
   canvas.image(img, 0, 0);
   //canvas.image(staticLayer.get(),0,0);
-  //drawCitiesCanvas();
+  drawCitiesCanvas();
   //drawRoutesCanvas();
   
   //Draw on canvas here

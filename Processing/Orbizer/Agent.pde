@@ -1,5 +1,5 @@
 class Agent {
-  PVector location, velocity, alatlon;
+  PVector location, velocity, alatlon, llOrig, llDest;
   int w, h;
   float hue;
   
@@ -12,6 +12,8 @@ class Agent {
     location = new PVector(0,0);
     velocity = new PVector(0,0);
     alatlon = new PVector(0,0);
+    llOrig = new PVector(0,0);
+    llDest = new PVector(0,0);
     bearing = 90;
     speed = 0;
     hue = 0;
@@ -42,6 +44,8 @@ class Agent {
   
   void flightInit(float lat1, float lon1, float lat2, float lon2, float flightTime, int fhue) {
     alatlon = new PVector(lat1, lon1);
+    llOrig = new PVector(lat1, lon1);
+    llDest = new PVector(lat2, lon2);
     bearing = calcBearing(lat1, lon1, lat2, lon2);
     speed = calcAngDist(lat1, lon1, lat2, lon2)/flightTime;
     duration = flightTime;
@@ -123,6 +127,12 @@ class Agent {
         canvas.ellipse(location.x, location.y, diameter, diameter);
         //canvas.ellipse(location.x, location.y, 10*sqrt(tan((location.y/canvas.height-0.5)*PI)*tan((location.y/canvas.height-0.5)*PI)+1), 10);
         break;
+    }
   }
+  
+  void drawRoute(int segments) {
+    canvas.stroke(hue, 100);
+    canvas.strokeWeight(2);
+    drawLine(llOrig.x, llOrig.y,llDest.x,llDest.y, segments);
   }
 }
