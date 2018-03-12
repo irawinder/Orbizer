@@ -3,7 +3,7 @@ class Agent {
   int w, h;
   float hue;
   
-  float bearing, speed, duration;
+  float bearing, speed, time, duration;
   boolean willEnd;
   
   Agent(int w, int h) {
@@ -49,6 +49,7 @@ class Agent {
     bearing = calcBearing(lat1, lon1, lat2, lon2);
     speed = calcAngDist(lat1, lon1, lat2, lon2)/flightTime;
     duration = flightTime;
+    time = 0;
 
     willEnd = true;
     hue = fhue;
@@ -88,7 +89,7 @@ class Agent {
     else if(alatlon.y < -180.0) alatlon.y += 360;
     
     if(willEnd) {
-      duration--;
+      time++;
     }
 
     location = latlontoCanvasXY(alatlon);
@@ -111,9 +112,9 @@ class Agent {
   }
   
   void drawMode() {
-    canvas.fill(hue, 255, 255, 200);
-    canvas.stroke(0, 200);
-    canvas.strokeWeight(2);
+    canvas.fill(hue, 255, 255, 50);
+    canvas.stroke(255, 200);
+    canvas.strokeWeight(1);
     int diameter = 6;
     switch(displayMode) {
       case "projection":
@@ -131,8 +132,10 @@ class Agent {
   }
   
   void drawRoute(int segments) {
-    canvas.stroke(hue, 100);
-    canvas.strokeWeight(2);
+    // dynamic alpha to fade route line in and out during take off and landing
+    float alpha = 50.0 * (1 - abs(time - 0.5*duration)/(0.5*duration) ); 
+    canvas.stroke(hue, 255, 255, alpha);
+    canvas.strokeWeight(4);
     drawLine(llOrig.x, llOrig.y,llDest.x,llDest.y, segments);
   }
 }

@@ -180,7 +180,7 @@ void drawCitiesCanvas() {
     tempLL.x = row.getFloat("lat");
     tempLL.y = row.getFloat("lon");
     tempXY = latlontoCanvasXY(tempLL);
-    
+    canvas.fill(255, 50); canvas.stroke(255); canvas.strokeWeight(1);
     canvas.rect(tempXY.x-rsize/2, tempXY.y-rsize/2,rsize, rsize);
   }
 }

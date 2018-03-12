@@ -78,9 +78,9 @@ void draw() {
   //drawLine(-51.8, -59.5,-33.9, 151.2,  20); //Falkland Islands to Sydney
   drawLine(-33.9, 151.2,-51.8, -59.5,  20); //Sydney to Falkland Islands
   */
-  if(displayMode == "flat") {
-    drawLine(42.3, -71,(float(height-mouseY)/height*180-90), (float(mouseX)/width*360-180),  40); //Boston to Mouse Position
-  }
+  //if(displayMode == "flat") {
+  //  drawLine(42.3, -71,(float(height-mouseY)/height*180-90), (float(mouseX)/width*360-180),  40); //Boston to Mouse Position
+  //}
   
   //canvas.stroke(255,255,255);
   //canvas.text("Can you read this?",canvas.width/2,canvas.height/2);

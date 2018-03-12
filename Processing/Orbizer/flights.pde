@@ -143,7 +143,7 @@ void updateFlights() {
       f.update3d();
       f.drawMode();
       f.drawRoute(25);
-      if(f.duration <= 0.0) flights.remove(i);
+      if(f.time > f.duration) flights.remove(i);
     }
   }
 }
