@@ -61,7 +61,6 @@ String[] phase = {
   "Loading Flight Data",
   "Setting up map projections"
 };
-int numPhases = phase.length;
 int DELAY = 500;
 
 // loads setup() information in phases so that loading progress can be shown
@@ -112,7 +111,7 @@ void init() {
     initialized = true;
   }
   
-  loadingScreen(loadingBG, phaseCounter+1, numPhases, phase[phaseCounter]);
+  loadingScreen(loadingBG, phaseCounter+1, phase.length, phase[phaseCounter]);
   phaseCounter++;
   delay(DELAY);
 }
