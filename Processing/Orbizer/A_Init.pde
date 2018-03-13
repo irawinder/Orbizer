@@ -28,6 +28,7 @@ String label = "Orbizer | Spherical Projection Mapping, " + version + "\n" +
 
 // Graphics Objects
 PImage map;
+PImage[] maps;
 PGraphics canvas;
 
 // Display Mode Setting
@@ -35,7 +36,6 @@ String displayMode;
 
 // Map Setting
 int mapIndex;
-int grayMap;
 String[] mapFile = { // Names of map files in /data folder
   "Equirectangular_projection_crop.png",
   "BlankMap-Equirectangular.png",
@@ -50,6 +50,7 @@ boolean showFrameRate;
 boolean showAutoRotate;
 boolean showAgents;
 boolean showFlightTable2016;
+boolean flipMap;
 
 float rotationFloat;
 
@@ -57,7 +58,7 @@ boolean hide = false;
  
 int phaseCounter = 0;
 String[] phase = {
-  "Initializing Canvas",
+  "Initializing Maps",
   "Loading Flight Data",
   "Setting up map projections"
 };
@@ -69,11 +70,17 @@ void init() {
   
   if (phaseCounter == 0) {
     
-    // Load the image into the program 
+    // Load all the images into the program 
     //
-    grayMap = 0; // false
+    maps = new PImage[mapFile.length];
+    for (int i=0; i<maps.length; i++) {
+      maps[i] = loadImage(mapFile[i]);
+    }
+      
+    // Select the image to display in the program 
+    //
     mapIndex = 4;
-    loadMap(mapFile[mapIndex], grayMap);
+    map = maps[mapIndex];
     
     canvas = createGraphics(map.width, map.height, P3D);
   
@@ -115,11 +122,6 @@ void init() {
   phaseCounter++;
   delay(DELAY);
 }
- 
-void loadMap(String file, int grayscale) {
-  map = loadImage(file);
-  if (grayscale == 1) map.filter(GRAY);
-}
 
 void restoreDefaults(){
   defaultFlat();
@@ -128,6 +130,5 @@ void restoreDefaults(){
   rotationFloat = 0;
   showVertexEdges = false;
   showReducedResolution = false;
-  grayMap = 0;
   mapIndex = mapFile.length-1;
 }

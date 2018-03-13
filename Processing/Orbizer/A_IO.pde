@@ -54,6 +54,9 @@ void keyPressed() {
     case 'h':
       hide = !hide;
       break;
+    case 'F':
+      flipMap = !flipMap;
+      break;
   }
 }
 
@@ -67,8 +70,6 @@ void mousePressed() {
     translateY.listenClick();
     rotate.listenClick();
     zoom.listenClick();
-    
-    flip.listenClick();
   }
   else if(displayMode == "sphere") {
     pitch3d.listenClick();
@@ -77,7 +78,6 @@ void mousePressed() {
   }
   else if(displayMode == "flat") {
     s_map.listenClick();
-    s_gray.listenClick();
     
     // Spawn a flight!
     PVector latlon = new PVector();
@@ -96,12 +96,9 @@ void mouseReleased() {
   rotate.isDragged     = false;
   zoom.isDragged       = false;
   
-  flip.isDragged     = false;
-  
   pitch3d.isDragged    = false;
   rotate3d.isDragged   = false;
   zoom3d.isDragged     = false;
   
   s_map.isDragged      = false;
-  s_gray.isDragged     = false;
 }

@@ -6,7 +6,6 @@ controlSlider translateX;
 controlSlider translateY;
 controlSlider rotate;
 controlSlider zoom;
-controlSlider flip;
 
 void setupProjection() {
   
@@ -96,18 +95,6 @@ void setupProjection() {
   rotate.valMin = 0;
   rotate.valMax = 360;
   rotate.value = 0;
-  
-  vOffset += vGap;
-  flip = new controlSlider();
-  flip.name = "Flip";
-  //flip.keyPlus = 's';
-  //flip.keyMinus = 'a';
-  flip.xpos = xOffset;
-  flip.ypos = vOffset;
-  flip.len = 50;
-  flip.valMin = 0;
-  flip.valMax = 1;
-  flip.value = 0;
 
 }
 
@@ -161,9 +148,6 @@ void drawProjectionControls() {
   rotate.listen();
   rotate.drawMe();
   
-  flip.listen();
-  flip.drawMe();
-  
   hint(ENABLE_DEPTH_TEST);
 }
 
@@ -205,7 +189,7 @@ void drawCircle(float innerR,float outerR,int texTop, int texBot, int segments) 
   beginShape(TRIANGLE_STRIP);
   texture(canvas);
   for(int i=0; i<=segments;i++) {
-    if (flip.value == 1) {
+    if (flipMap) {
       vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, map.width - i*map.width/segments, texBot);
       vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, map.width - i*map.width/segments, texTop);
     } else {
@@ -235,6 +219,4 @@ void defaultProjection() {
   translateY.value = 0;
   zoom.value = 100;
   rotate.value = 0;
-  
-  flip.value = 0;
 }

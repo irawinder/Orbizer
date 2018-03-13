@@ -17,26 +17,13 @@ void setupFlat() {
   s_map.valMin = 0;
   s_map.valMax = mapFile.length-1;
   s_map.value  = mapFile.length-1;
-  
-  vOffset += vGap;
-  s_gray = new controlSlider();
-  s_gray.name = "GrayScale";
-  //s_gray.keyPlus = 's';
-  //s_gray.keyMinus = 'a';
-  s_gray.xpos = xOffset;
-  s_gray.ypos = vOffset;
-  s_gray.len = 35;
-  s_gray.valMin = 0;
-  s_gray.valMax = 1;
-  s_gray.value = 0;
 }
 
 void displayFlat() {
   
-  if (s_map.value != mapIndex || int(s_gray.value) != grayMap) {
+  if (s_map.value != mapIndex) {
     mapIndex = int(s_map.value);
-    grayMap  = int(s_gray.value);
-    loadMap(mapFile[mapIndex], grayMap);
+    map = maps[mapIndex];
     map.resize(canvas.width, canvas.height);
   }
   
@@ -60,9 +47,6 @@ void displayFlat() {
          
      s_map.listen();
      s_map.drawMe();
-     
-     s_gray.listen();
-     s_gray.drawMe();
   }
 }
 

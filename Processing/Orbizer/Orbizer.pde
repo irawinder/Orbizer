@@ -33,7 +33,7 @@ void setup() {
   initialized = false;
   loadingBG = loadImage("loading.jpg");
   
-  loadingScreen(loadingBG, 0, 1, "Initializing");
+  loadingScreen(loadingBG, phaseCounter+1, phase.length, phase[phaseCounter]);
 }
 
 // draw() repeats on infinite loop after setup (this is a default Processing method)
