@@ -150,9 +150,8 @@ void checkLLforRoutes(PVector LL1, PVector LL2) {
 
 void createStaticLayer() {
   staticLayer = createGraphics(img.width, img.height);
-  staticLayer.colorMode(RGB);
   staticLayer.beginDraw();
-  staticLayer.background(0,0,0,0);
+  staticLayer.background(0);
 
   drawCities();
 

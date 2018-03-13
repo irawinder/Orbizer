@@ -48,9 +48,10 @@ class controlSlider {
   
   void drawMe() {
     strokeWeight(1);
-    fill(255);
-    text(int(value),xpos+diameter+len,ypos+5);
-    text(name,xpos-0.5*diameter,ypos-diameter);
+  
+    fill(255); textAlign(LEFT, BOTTOM);
+    text(int(value), int(xpos+diameter+len), int(ypos+5)        );
+    text(name,       int(xpos-0.5*diameter), int(ypos-diameter) );
     
     stroke(100);
     fill(255,100);

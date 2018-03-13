@@ -10,7 +10,7 @@ controlSlider zoom;
 void setupProjection() {
   
   int xOffset = 50;
-  int vOffset = 300;
+  int vOffset = 337;
   int vGap = 70;
   int sWidth = int(0.3*(width - height));
   
@@ -100,20 +100,21 @@ void setupProjection() {
 }
 
 void displayProjection(){
-  
   drawProjection(w45min.value,weq.value,w45max.value, 200);
+  if (!hide) drawProjectionControls();
+}
+
+void drawProjectionControls() {
   
   // Command to help you draw 2D UI graphics over 3D objects
   // This are computationally intense so use sparingly!
   hint(DISABLE_DEPTH_TEST);
   
-  fill(255,200);
-  
   String frameRt = "";
+  if (showFrameRate) frameRt = "\n\nFramerate: " + frameRate;
   
-  if (showFrameRate) {
-    frameRt = "\n\nFramerate: " + frameRate;
-  }
+  fill(255); textAlign(LEFT, TOP);
+  
   text("Press ' m ' to toggle display Mode\n" +
        "Press ' f ' to show or hide framerate\n" + 
        "Press ' l ' to show or hide graphics vertices\n" +
@@ -122,7 +123,9 @@ void displayProjection(){
        "Press ' r ' to reset callibration\n" +
        "Press ' a ' to show or hide agents\n" +
        "Press ' t ' to save configuration\n" +
-       "Press ' y ' to load last saved configuration" +
+       "Press ' y ' to load last saved configuration\n" +
+       "Press ' h ' to hide controls\n" +
+       "Press ' SHIFT+F ' to flip projection" +
        frameRt, 37, 110);
   
   w45min.listen();
@@ -187,10 +190,13 @@ void drawCircle(float innerR,float outerR,int texTop, int texBot, int segments) 
   beginShape(TRIANGLE_STRIP);
   texture(canvas);
   for(int i=0; i<=segments;i++) {
-    vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, img.width - i*img.width/segments, texBot);
-    vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, img.width - i*img.width/segments, texTop);
-    //vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, i*img.width/segments, texBot);
-    //vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, i*img.width/segments, texTop);
+    if (flip) {
+      vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, img.width - i*img.width/segments, texBot);
+      vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, img.width - i*img.width/segments, texTop);
+    } else {
+      vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, i*img.width/segments, texBot);
+      vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, i*img.width/segments, texTop);
+    }
   }
   endShape();
 }

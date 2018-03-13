@@ -5,7 +5,7 @@ controlSlider zoom3d;
 void setupSphere(){
   
   int xOffset = 50;
-  int vOffset = 300;
+  int vOffset = 337;
   int vGap = 70;
   int sWidth = int(0.3*(width - height));
   
@@ -18,7 +18,7 @@ void setupSphere(){
   zoom3d.ypos = vOffset;
   zoom3d.valMin = 0;
   zoom3d.valMax = 500;
-  zoom3d.value = 0.4*height;
+  zoom3d.value = 0.3*height;
   
   vOffset += vGap;
   pitch3d = new controlSlider();
@@ -49,18 +49,20 @@ void setupSphere(){
 void displaySphere() {
   
   drawSphere(30,60);
+  if (!hide) drawSphereControls();
   
+}
+
+void drawSphereControls() {
   // Command to help you draw 2D UI graphics over 3D objects
   // This are computationally intense so use sparingly!
   hint(DISABLE_DEPTH_TEST);
   
-  fill(255,200);
-  
   String frameRt = "";
-
-  if (showFrameRate) {
-    frameRt = "\n\nFramerate: " + frameRate;
-  }
+  if (showFrameRate) frameRt = "\n\nFramerate: " + frameRate;
+  
+  fill(255); textAlign(LEFT, TOP);
+  
   text("Press ' m ' to toggle display Mode\n" +
        "Press ' f ' to show or hide framerate\n" + 
        "Press ' s ' to reduce or increase resolution\n" +
@@ -68,7 +70,9 @@ void displaySphere() {
        "Press ' r ' to reset callibration\n" +
        "Press ' a ' to show or hide agents\n" +
        "Press ' t ' to save configuration\n" +
-       "Press ' y ' to load last saved configuration" +
+       "Press ' y ' to load last saved configuration\n" +
+       "Press ' h ' to hide controls" +
+       
        frameRt, 37, 110);
   
   pitch3d.listen();
@@ -81,8 +85,6 @@ void displaySphere() {
   rotate3d.drawMe();
   
   hint(ENABLE_DEPTH_TEST);
-  
-
 }
 
 void drawSphere(int segLat, int segLon) {
@@ -146,7 +148,7 @@ float getZ3D(float phi, float theta){
 }
 
 void defaultSphere() {
-  zoom3d.value = 0.4*height;
+  zoom3d.value = 0.3*height;
   pitch3d.value = 45;
   rotate3d.value = 180;
 }

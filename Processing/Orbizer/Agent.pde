@@ -118,15 +118,15 @@ class Agent {
     int diameter = 6;
     switch(displayMode) {
       case "projection":
-        //canvas.ellipse(location.x, location.y, 25*(tan((1-location.y/canvas.height)*PI/2)+1), 25);
         canvas.ellipse(location.x, location.y, diameter, diameter);
         break;
       case "sphere":
-        canvas.ellipse(location.x, location.y, diameter*sqrt(tan((location.y/canvas.height-0.5)*PI)*tan((location.y/canvas.height-0.5)*PI)+1), diameter);
+        // Need to draw "wide" agents near northern-most and southern-most latitudes
+        float distortion = sqrt(tan((location.y/canvas.height-0.5)*PI)*tan((location.y/canvas.height-0.5)*PI)+1);
+        canvas.ellipse(location.x, location.y, distortion*diameter, diameter);
         break;
       case "flat":
         canvas.ellipse(location.x, location.y, diameter, diameter);
-        //canvas.ellipse(location.x, location.y, 10*sqrt(tan((location.y/canvas.height-0.5)*PI)*tan((location.y/canvas.height-0.5)*PI)+1), 10);
         break;
     }
   }
@@ -134,7 +134,9 @@ class Agent {
   void drawRoute(int segments) {
     // dynamic alpha to fade route line in and out during take off and landing
     float alpha = 50.0 * (1 - abs(time - 0.5*duration)/(0.5*duration) ); 
+    canvas.colorMode(HSB);
     canvas.stroke(hue, 255, 255, alpha);
+    canvas.colorMode(RGB);
     canvas.strokeWeight(4);
     drawLine(llOrig.x, llOrig.y,llDest.x,llDest.y, segments);
   }
