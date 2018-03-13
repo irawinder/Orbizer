@@ -66,8 +66,6 @@ class Agent {
   }
   
   void update3d() {
-    PVector templatlon = new PVector(0,0);
-    
     float c = PI/180;
     float newBearing = 0;
     
@@ -112,7 +110,9 @@ class Agent {
   }
   
   void drawMode() {
-    canvas.fill(hue, 255, 255, 50);
+    canvas.colorMode(HSB);
+    canvas.fill(hue, 255, 255, 100);
+    canvas.colorMode(RGB);
     canvas.stroke(255, 200);
     canvas.strokeWeight(1);
     int diameter = 6;

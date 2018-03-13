@@ -146,30 +146,6 @@ void checkLLforRoutes(PVector LL1, PVector LL2) {
     print("found a new airport \n ");
   }
 }
-  
-
-void createStaticLayer() {
-  staticLayer = createGraphics(img.width, img.height);
-  staticLayer.beginDraw();
-  staticLayer.background(0);
-
-  drawCities();
-
-  staticLayer.endDraw();
-}
-
-void drawCities() {
-  int rsize = 10;
-  for (TableRow row : cities.rows()) {
-    PVector tempLL = new PVector();
-    PVector tempXY = new PVector();
-    tempLL.x = row.getFloat("lat");
-    tempLL.y = row.getFloat("lon");
-    tempXY = latlontoCanvasXY(tempLL);
-    
-    staticLayer.rect(tempXY.x-rsize/2, tempXY.y-rsize/2,rsize, rsize);
-  }
-}
 
 void drawCitiesCanvas() {
   int rsize = 10;

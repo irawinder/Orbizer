@@ -30,11 +30,9 @@ class controlSlider {
   void listen() {
     //Keyboard Controls
     if ((keyPressed == true) && (key == keyMinus)) {value--;}
-    if ((keyPressed == true) && (key == keyPlus)) {value++;}
+    if ((keyPressed == true) && (key == keyPlus))  {value++;}
     
-    if (isDragged) {
-    value = (mouseX-xpos)*(valMax-valMin)/len+valMin;
-    }
+    if (isDragged) value = (mouseX-xpos)*(valMax-valMin)/len+valMin;
   
     if(value < valMin) value = valMin;
     if(value > valMax) value = valMax;

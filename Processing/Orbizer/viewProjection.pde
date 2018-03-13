@@ -6,6 +6,7 @@ controlSlider translateX;
 controlSlider translateY;
 controlSlider rotate;
 controlSlider zoom;
+controlSlider flip;
 
 void setupProjection() {
   
@@ -96,6 +97,17 @@ void setupProjection() {
   rotate.valMax = 360;
   rotate.value = 0;
   
+  vOffset += vGap;
+  flip = new controlSlider();
+  flip.name = "Flip";
+  //flip.keyPlus = 's';
+  //flip.keyMinus = 'a';
+  flip.xpos = xOffset;
+  flip.ypos = vOffset;
+  flip.len = 50;
+  flip.valMin = 0;
+  flip.valMax = 1;
+  flip.value = 0;
 
 }
 
@@ -149,6 +161,9 @@ void drawProjectionControls() {
   rotate.listen();
   rotate.drawMe();
   
+  flip.listen();
+  flip.drawMe();
+  
   hint(ENABLE_DEPTH_TEST);
 }
 
@@ -174,10 +189,10 @@ void drawProjection(float botWarp, float equatorWarp, float topWarp, int seg) {
   scale(zoom.value/100.0);
   
   
-  drawCircle(0,                               height*(90-topWarp)/360,         0,                img.height/4,    seg); //center
-  drawCircle(height*(90-topWarp)/360,         height*(90-equatorWarp)/360,     img.height/4,       img.height/2,    seg); // north of equator
-  drawCircle(height*(90-equatorWarp)/360,     height*(90-botWarp)/360,         img.height/2,     img.height*3/4,     seg); //south of equator
-  drawCircle(height*(90-botWarp)/360,         height/2,                        img.height*3/4,        img.height,    seg); //outside edge
+  drawCircle(0,                               height*(90-topWarp)/360,         0,                map.height/4,    seg); //center
+  drawCircle(height*(90-topWarp)/360,         height*(90-equatorWarp)/360,     map.height/4,       map.height/2,    seg); // north of equator
+  drawCircle(height*(90-equatorWarp)/360,     height*(90-botWarp)/360,         map.height/2,     map.height*3/4,     seg); //south of equator
+  drawCircle(height*(90-botWarp)/360,         height/2,                        map.height*3/4,        map.height,    seg); //outside edge
   popMatrix();
 }
 
@@ -190,12 +205,12 @@ void drawCircle(float innerR,float outerR,int texTop, int texBot, int segments) 
   beginShape(TRIANGLE_STRIP);
   texture(canvas);
   for(int i=0; i<=segments;i++) {
-    if (flip) {
-      vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, img.width - i*img.width/segments, texBot);
-      vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, img.width - i*img.width/segments, texTop);
+    if (flip.value == 1) {
+      vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, map.width - i*map.width/segments, texBot);
+      vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, map.width - i*map.width/segments, texTop);
     } else {
-      vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, i*img.width/segments, texBot);
-      vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, i*img.width/segments, texTop);
+      vertex(getX(outerR,  i*segmentAngle), getY(outerR,  i*segmentAngle), 0, i*map.width/segments, texBot);
+      vertex(getX(innerR,  i*segmentAngle), getY(innerR,  i*segmentAngle), 0, i*map.width/segments, texTop);
     }
   }
   endShape();
@@ -220,4 +235,6 @@ void defaultProjection() {
   translateY.value = 0;
   zoom.value = 100;
   rotate.value = 0;
+  
+  flip.value = 0;
 }

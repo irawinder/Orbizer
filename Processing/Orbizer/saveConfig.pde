@@ -76,7 +76,7 @@ void saveConfig() {
   
   newRow = config.addRow();
   newRow.setString("id", "flip");
-  newRow.setInt("value", int(flip));
+  newRow.setFloat("value", flip.value);
   
   saveTable(config, "data/config.csv");
 }
@@ -112,7 +112,7 @@ void loadConfig() {
     translateY.value = config.getFloat(13,1);
     rotate.value = config.getFloat(14,1);
     zoom.value = config.getFloat(15,1);
-    flip = boolean(config.getInt(16,1));
+    flip.value = config.getFloat(16,1);
   }
   else restoreDefaults();
 }

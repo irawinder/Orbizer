@@ -1,5 +1,5 @@
 PImage loadingBG;
-void loadScreen(PImage bg, int phase, int numPhases, String status) {
+void loadingScreen(PImage bg, int phase, int numPhases, String status) {
   background(0); image(bg, 0, 0, width, height);
   pushMatrix(); translate(width/2, height/2);
   int lW = 400;

@@ -1,6 +1,3 @@
-ArrayList<Agent> particles;
-ArrayList<Agent> flights;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -16,7 +13,12 @@ BufferedReader br;
 FileReader fr;
 String currentLine;
 
-//These 3 vectors could be made into a flight object of some kind but I don't want to bother right now.
+// Animated agents
+ArrayList<Agent> particles;  // particles meant for testing
+ArrayList<Agent> flights;    // A380 flights
+
+//These 3 vectors could be made into a flight object of some kind ...
+//
 PVector fLLOrig; //Origin Lat/Lon
 PVector fLLDest; //Destination Lat/Lon
 PVector timeHue; //duration is x in min, takeoff time is y in min, hue is z. This is an object so functions can alter the value.
@@ -31,7 +33,6 @@ void openFlightTable() {
     }
     catch(FileNotFoundException fnfe) { System.out.println("The specified file is not present at the given path");
     }
-    
     
     fcount = 0;
     ftime = 0;
@@ -148,10 +149,11 @@ void updateFlights() {
   }
 }
 
+//
 void setupParticles() {
   particles = new ArrayList<Agent>();
   for (int i=0; i<200; i++) {
-    Agent a = new Agent(img.width, img.height);
+    Agent a = new Agent(map.width, map.height);
     a.randomInit();
     particles.add(a);
   }

@@ -1,9 +1,9 @@
 /*  ORBIZER
- *  Ira Winder, ira@mit.edu, 2018
+ *  Mike and Ira Winder, 2018
  *
  *  Input / Output Functions
  *
- *  MIT LICENSE:  Copyright 2018 Ira Winder
+ *  MIT LICENSE:  Copyright 2018 Mike and Ira Winder
  *
  *               Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  *               and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -48,14 +48,11 @@ void keyPressed() {
       showAutoRotate = !showAutoRotate;
       break;
     case 'm':  //display mode toggles Projection -> Sphere -> Flat
-      if(displayMode == "projection") {displayMode = "sphere"; break;}
-      if(displayMode == "sphere") {displayMode = "flat"; break;}
-      if(displayMode == "flat") {displayMode = "projection"; break;}
+      if(displayMode == "projection") {displayMode = "sphere";     break;}
+      if(displayMode == "sphere")     {displayMode = "flat";       break;}
+      if(displayMode == "flat")       {displayMode = "projection"; break;}
     case 'h':
       hide = !hide;
-      break;
-    case 'F':
-      flip = !flip;
       break;
   }
 }
@@ -70,6 +67,8 @@ void mousePressed() {
     translateY.listenClick();
     rotate.listenClick();
     zoom.listenClick();
+    
+    flip.listenClick();
   }
   else if(displayMode == "sphere") {
     pitch3d.listenClick();
@@ -77,6 +76,10 @@ void mousePressed() {
     zoom3d.listenClick();
   }
   else if(displayMode == "flat") {
+    s_map.listenClick();
+    s_gray.listenClick();
+    
+    // Spawn a flight!
     PVector latlon = new PVector();
     latlon = windowXYtolatlon(mouseX, mouseY);
     spawnFlight(42.3, -71, latlon.x, latlon.y, 180, 255);
@@ -84,16 +87,21 @@ void mousePressed() {
 }
 
 void mouseReleased() {
-  w45min.isDragged = false;
-  weq.isDragged = false;
-  w45max.isDragged = false;
+  w45min.isDragged     = false;
+  weq.isDragged        = false;
+  w45max.isDragged     = false;
 
   translateX.isDragged = false;
   translateY.isDragged = false;
-  rotate.isDragged = false;
-  zoom.isDragged = false;
+  rotate.isDragged     = false;
+  zoom.isDragged       = false;
   
-  pitch3d.isDragged = false;
-  rotate3d.isDragged = false;
-  zoom3d.isDragged = false;
+  flip.isDragged     = false;
+  
+  pitch3d.isDragged    = false;
+  rotate3d.isDragged   = false;
+  zoom3d.isDragged     = false;
+  
+  s_map.isDragged      = false;
+  s_gray.isDragged     = false;
 }

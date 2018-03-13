@@ -131,8 +131,8 @@ void drawRing(float botPhi,float topPhi, int segments) {
   texture(canvas);
 
   for(int i=0; i<=(segments);i++) {
-    vertex(getX3D(botRad,  i*segAng), -sin(botRad), getZ3D(botPhi*PI/180,  i*segAng), i*img.width/segments, img.height*(1-(botPhi+90)/180));
-    vertex(getX3D(topRad,  i*segAng), -sin(topRad), getZ3D(topPhi*PI/180,  i*segAng), i*img.width/segments, img.height*(1-(topPhi+90)/180));
+    vertex(getX3D(botRad,  i*segAng), -sin(botRad), getZ3D(botPhi*PI/180,  i*segAng), i*map.width/segments, map.height*(1-(botPhi+90)/180));
+    vertex(getX3D(topRad,  i*segAng), -sin(topRad), getZ3D(topPhi*PI/180,  i*segAng), i*map.width/segments, map.height*(1-(topPhi+90)/180));
   }
   endShape();
 }

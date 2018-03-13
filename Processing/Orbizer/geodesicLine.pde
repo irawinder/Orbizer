@@ -62,8 +62,8 @@ float calcAngDist(float lt1, float ln1, float lt2, float ln2) {
 
 PVector latlontoUV(PVector latlon) {
   PVector UV = new PVector();
-  UV.x = (latlon.y*180/PI+180)*img.width/360;
-  UV.y = (90-latlon.x*180/PI)*img.height/180;
+  UV.x = (latlon.y*180/PI+180)*map.width/360;
+  UV.y = (90-latlon.x*180/PI)*map.height/180;
   return UV;
 }
 
