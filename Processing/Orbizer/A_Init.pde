@@ -37,11 +37,11 @@ String displayMode;
 // Map Setting
 int mapIndex;
 String[] mapFile = { // Names of map files in /data folder
+  "world.topo.bathy.200407.3x5400x2700.jpg",
   "Equirectangular_projection_crop.png",
   "BlankMap-Equirectangular.png",
   "BlankMap-Equirectangular_night.png",
-  "Earth_night_homemade.jpg",
-  "world.topo.bathy.200407.3x5400x2700.jpg"
+  "Earth_night_homemade.jpg"
 };
 
 boolean showVertexEdges;
@@ -50,7 +50,6 @@ boolean showFrameRate;
 boolean showAutoRotate;
 boolean showAgents;
 boolean showFlightTable2016;
-boolean flipMap;
 
 float rotationFloat;
 
@@ -79,7 +78,7 @@ void init() {
       
     // Select the image to display in the program 
     //
-    mapIndex = 4;
+    mapIndex = 0;
     map = maps[mapIndex];
     
     canvas = createGraphics(map.width, map.height, P3D);
@@ -130,5 +129,4 @@ void restoreDefaults(){
   rotationFloat = 0;
   showVertexEdges = false;
   showReducedResolution = false;
-  mapIndex = mapFile.length-1;
 }

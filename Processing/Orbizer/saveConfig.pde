@@ -75,8 +75,12 @@ void saveConfig() {
   newRow.setFloat("value", zoom.value);
   
   newRow = config.addRow();
-  newRow.setString("id", "flip");
+  newRow.setString("id", "flipMap");
   newRow.setInt("value", int(flipMap));
+  
+  newRow = config.addRow();
+  newRow.setString("id", "mapIndex");
+  newRow.setInt("value", mapIndex);
   
   saveTable(config, "data/config.csv");
 }
@@ -90,7 +94,7 @@ void loadConfig() {
   
     //DisplayMode
     //displayMode = config.getString(0,1);
-  
+    
     //Booleans 5 values
     showVertexEdges = boolean(config.getInt(1,1));
     showReducedResolution = boolean(config.getInt(2,1));
@@ -113,6 +117,7 @@ void loadConfig() {
     rotate.value = config.getFloat(14,1);
     zoom.value = config.getFloat(15,1);
     flipMap = boolean(config.getInt(16,1));
+    s_map.value = config.getInt(17,1);
   }
   else restoreDefaults();
 }

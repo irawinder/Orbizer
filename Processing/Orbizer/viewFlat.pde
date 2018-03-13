@@ -16,7 +16,7 @@ void setupFlat() {
   s_map.len = sWidth;
   s_map.valMin = 0;
   s_map.valMax = mapFile.length-1;
-  s_map.value  = mapFile.length-1;
+  s_map.value  = 0;
 }
 
 void displayFlat() {
@@ -51,5 +51,5 @@ void displayFlat() {
 }
 
 void defaultFlat() {
-  
+  s_map.value = 0;
 }

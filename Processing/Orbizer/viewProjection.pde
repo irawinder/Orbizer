@@ -7,6 +7,8 @@ controlSlider translateY;
 controlSlider rotate;
 controlSlider zoom;
 
+boolean flipMap;
+
 void setupProjection() {
   
   int xOffset = 50;
@@ -219,4 +221,6 @@ void defaultProjection() {
   translateY.value = 0;
   zoom.value = 100;
   rotate.value = 0;
+  
+  flipMap = false;
 }
