@@ -27,8 +27,8 @@ boolean initialized;
 // setup() executes once when application begins (this is a default Processing method)
 // 
 void setup() {
-  //size(1280, 800, P3D);
-  fullScreen(P3D);
+  size(1280, 800, P3D);
+  //fullScreen(P3D);
   
   initialized = false;
   loadingBG = loadImage("loading.jpg");

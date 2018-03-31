@@ -50,6 +50,7 @@ boolean showFrameRate;
 boolean showAutoRotate;
 boolean showAgents;
 boolean showFlightTable2016;
+boolean dataFound;
 
 float rotationFloat;
 
@@ -69,6 +70,22 @@ void init() {
   
   if (phaseCounter == 0) {
     
+    //Locate data Prompt
+    dataFound = false;
+    File filetest = new File(dataPath("a380_2 2 header ok.txt"));
+    if(filetest.exists()) { 
+      dataFound = true;
+    }
+    else {
+      selectInput("Locate a380_2 2 header ok.txt to be copied to the data folder.", "copyData");
+    }
+    
+    //Stall out program until copyData resolves
+    while(!dataFound){
+      print("Waiting on Data Selection. data found: " + dataFound + "\n");
+      delay(1000);
+    }
+    
     // Load all the images into the program 
     //
     maps = new PImage[mapFile.length];
@@ -84,7 +101,7 @@ void init() {
     canvas = createGraphics(map.width, map.height, P3D);
   
   } else if (phaseCounter == 1) {
-  
+    
     showAutoRotate = true;
     displayMode    = "flat";
     showAgents     = true;

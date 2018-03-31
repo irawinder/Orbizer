@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
 
 int fpMin = 1;
 int fcount;
@@ -166,4 +167,27 @@ void updateParticles() {
       a.drawMode();
     }
   }
+}
+
+void copyData(File selected) throws IOException {
+  //print("\n\n\n\n" + selected.getName() + "\n\n\n\n");
+  if(selected.getName().equals("a380_2 2 header ok.txt")) {
+  File moveMe = new File(dataPath("a380_2 2 header ok.txt"));
+  Files.copy(selected.toPath(), moveMe.toPath());
+  dataFound = true;
+  }
+  else {
+    selectInput("Locate a380_2 2 header ok.txt to be copied to the data folder.", "copyData");
+  }
+}
+
+String UTCFlightTime() {
+  
+  int minutes = ftime % 60;
+  int hours = ftime / 60 % 24;
+  int days = (ftime / (24 * 60) + 1);
+  
+  String UTCstr = new String(days + "/1/2016  " + hours + ":" + minutes);
+  
+  return UTCstr;
 }

@@ -127,6 +127,7 @@ void drawProjectionControls() {
        "Press ' y ' to load last saved configuration\n" +
        "Press ' h ' to hide controls\n" +
        "Press ' SHIFT+F ' to flip projection" +
+       "\nFlightTime: UTC " +  UTCFlightTime() +
        frameRt, 37, 110);
   
   w45min.listen();

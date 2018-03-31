@@ -1,5 +1,5 @@
 class Agent {
-  PVector location, velocity, alatlon, llOrig, llDest;
+  PVector location, alatlon, llOrig, llDest;
   int w, h;
   float hue;
   
@@ -10,7 +10,6 @@ class Agent {
     this.w = w;
     this.h = h;
     location = new PVector(0,0);
-    velocity = new PVector(0,0);
     alatlon = new PVector(0,0);
     llOrig = new PVector(0,0);
     llDest = new PVector(0,0);
@@ -22,13 +21,6 @@ class Agent {
   }
   
   void randomInit() {
-    //old agents
-    float randomX = random(0, w);
-    float randomY = random(0, h);
-    location = new PVector(randomX, randomY);
-    float randomSpeed = random(-2, 2);
-    velocity = new PVector(randomSpeed, 0);
-    
     //sphere agents
     float randomLat = random(-90, 90);
     float randomLon = random(-180, 180);
@@ -56,15 +48,7 @@ class Agent {
     
     location = latlontoCanvasXY(alatlon);
   }
-  
-  void update() {
-    location.add(velocity);
-    if (location.x > w) location.x = 0;
-    if (location.x < 0) location.x = w;
-    if (location.y > h) location.y = 0;
-    if (location.y < 0) location.y = h;
-  }
-  
+
   void update3d() {
     float c = PI/180;
     float newBearing = 0;
@@ -92,17 +76,7 @@ class Agent {
 
     location = latlontoCanvasXY(alatlon);
   }
-  
-  void draw() {
-    canvas.fill(hue, 255, 255);
-    canvas.noStroke();
-    for (int i=0; i<10; i++) {
-      canvas.fill(hue, 255, 255, 255*(9-i)/9.0);
-      canvas.stroke(hue, 255, 255, 255*(9-i)/9.0);
-      canvas.ellipse(location.x - 1.5*i*velocity.x, location.y - i*velocity.y, 5, 5);
-    }
-  }
-  
+
   void drawSimple() {
      canvas.fill(hue, 255, 255);
      canvas.noStroke();

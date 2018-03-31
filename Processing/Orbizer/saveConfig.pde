@@ -92,32 +92,51 @@ void loadConfig() {
 
     config = loadTable("config.csv","header");
   
+    for(TableRow row : config.rows()) {
+      switch (row.getString("id")) {
+            //Booleans 6 values
+            case "showVertexEdges" :  showVertexEdges = boolean(row.getInt("value"));
+                     break;
+            case "showReducedResolution" :  showReducedResolution = boolean(row.getInt("value"));
+                     break;
+            case "showFrameRate" :  showFrameRate = boolean(row.getInt("value"));
+                     break;
+            case "showAutoRotate" :  showAutoRotate = boolean(row.getInt("value"));
+                     break;
+            case "showAgents" :  showAgents = boolean(row.getInt("value"));
+                     break;
+            case "flipMap" :  flipMap = boolean(row.getInt("value"));
+                     break;
+            //Sphere 3 values
+            case "pitch3d" :  pitch3d.value = row.getFloat("value");
+                     break;
+            case "zoom3d" :  zoom3d.value = row.getFloat("value");
+                     break;
+            case "rotate3d" :  rotate3d.value = row.getFloat("value");
+                     break;
+            //Projection 7 values
+            case "w45min" :  w45min.value = row.getFloat("value");
+                     break;
+            case "weq" :  weq.value = row.getFloat("value");
+                     break;
+            case "w45max" :  w45max.value = row.getFloat("value");
+                     break;
+            case "translateX" :  translateX.value = row.getFloat("value");
+                     break;
+            case "translateY" :  translateY.value = row.getFloat("value");
+                     break;
+            case "rotate" :  rotate.value = row.getFloat("value");
+                     break;
+            case "zoom" :  zoom.value = row.getFloat("value");
+                     break;
+            //Integer 1 value
+            case "s_map" :  s_map.value = row.getInt("value");
+                     break;
+      }
+    }
+  
     //DisplayMode
     //displayMode = config.getString(0,1);
-    
-    //Booleans 5 values
-    showVertexEdges = boolean(config.getInt(1,1));
-    showReducedResolution = boolean(config.getInt(2,1));
-    showFrameRate = boolean(config.getInt(3,1));
-    showAutoRotate = boolean(config.getInt(4,1));
-    showAgents = boolean(config.getInt(5,1));
-  
-    //Sphere 3 values
-    pitch3d.value = config.getFloat(6,1);
-    zoom3d.value = config.getFloat(7,1);
-    rotate3d.value = config.getFloat(8,1);
-  
-    //Projection 7 values
-    w45min.value = config.getFloat(9,1);
-    weq.value = config.getFloat(10,1);
-    w45max.value = config.getFloat(11,1);
-  
-    translateX.value = config.getFloat(12,1);
-    translateY.value = config.getFloat(13,1);
-    rotate.value = config.getFloat(14,1);
-    zoom.value = config.getFloat(15,1);
-    flipMap = boolean(config.getInt(16,1));
-    s_map.value = config.getInt(17,1);
   }
   else restoreDefaults();
 }

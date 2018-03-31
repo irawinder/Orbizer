@@ -72,6 +72,7 @@ void drawSphereControls() {
        "Press ' t ' to save configuration\n" +
        "Press ' y ' to load last saved configuration\n" +
        "Press ' h ' to hide controls" +
+       "\nFlightTime: UTC " +  UTCFlightTime() +
        
        frameRt, 37, 110);
   

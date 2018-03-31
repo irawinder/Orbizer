@@ -8,7 +8,7 @@ void setupFlat() {
   int sWidth = int(0.3*(width - height));
   
   s_map = new controlSlider();
-  s_map.name = "Map File Index";
+  s_map.name = "Select Map Image";
   //s_map.keyPlus = 'w';
   //s_map.keyMinus = 'q';
   s_map.xpos = xOffset;
@@ -42,7 +42,7 @@ void displayFlat() {
          "Press ' t ' to save configuration\n" +
          "Press ' y ' to load last saved configuration\n" +
          "Press ' h ' to hide controls" +
-         "\nFlightTime " + ftime +
+         "\nFlightTime: UTC " +  UTCFlightTime() +
          frameRt, 37, 110);
          
      s_map.listen();
