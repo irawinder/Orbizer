@@ -60,7 +60,7 @@ int phaseCounter = 0;
 String[] phase = {
   "Initializing Maps",
   "Loading Flight Data",
-  "Setting up map projections"
+  "Setting up Map Projections"
 };
 int DELAY = 500;
 

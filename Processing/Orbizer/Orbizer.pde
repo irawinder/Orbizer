@@ -57,7 +57,7 @@ void draw() {
 }
 
 void run() {
-  background(0); // Draw a black pixels as background every frame
+  background(0); // Draw black pixels as background every frame
   
   // "PGraphics canvas" is the 2D Equirectangular map that we transform into radial and spherical forms
   //
@@ -68,7 +68,7 @@ void run() {
   //
   canvas.image(map, 0, 0);
   
-  // Draw Known Origin and Destination Points to Canvas
+  // Draw known origin and destination points to canvas
   //
   drawCitiesCanvas();
   
