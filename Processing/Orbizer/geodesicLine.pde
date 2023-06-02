@@ -10,9 +10,6 @@ void drawLine(float lat1, float lon1,float lat2, float lon2, int segments) {
   float a = sin((rlat1-rlat2)/2)*sin((rlat1-rlat2)/2) + cos(rlat1)*cos(rlat2) * sin((rlon1-rlon2)/2)*sin((rlon1-rlon2)/2);
   float angDist = 2*atan2(sqrt(a),sqrt(1-a));
   
-  //f is the fraction of the way along the path between 0-1
-  float f = 0;
-  
   PVector latlon = new PVector(rlat1,rlon1);
   
   PVector newUV = new PVector();
@@ -23,8 +20,12 @@ void drawLine(float lat1, float lon1,float lat2, float lon2, int segments) {
   //canvas.stroke(#FFFFFF, 100);
   //canvas.strokeWeight(3);
   
-  for(int i=0;i<=segments;i++) {  
-    latlon = calcInter(rlat1, rlon1, rlat2, rlon2, angDist, float(i)/float(segments));
+  for(int i=0;i<=segments;i++) {
+    
+    //f is the fraction of the way along the path between 0-1
+    float f = float(i)/float(segments);
+    
+    latlon = calcInter(rlat1, rlon1, rlat2, rlon2, angDist, f);
     newUV = latlontoUV(latlon);
     
     //Do the pacific wrap correction if the UV positions are most of the canvas width.
